@@ -21,7 +21,22 @@ public class ClientThread implements Runnable, Observer {
 
     @Override
     public void run() {
+        Server server = Server.getInstance();
+        String messageFromClient;
+        try {
+            while (!server.isShutDown() && (messageFromClient = in.readLine()) != null) {
+                Object reply;
+                if (messageFromClient.equals("GETQUIZZES")) {
 
+                } else if (messageFromClient.startsWith("GETQUESTIONS")) {
+
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            server.unregisterClientThread(this);
+        }
     }
 
     @Override

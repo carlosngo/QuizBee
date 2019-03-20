@@ -1,5 +1,7 @@
 package Model;
 
+import DAO.*;
+
 import java.util.concurrent.*;
 import java.util.*;
 import java.util.concurrent.locks.*;
@@ -14,6 +16,8 @@ public class Server {
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private final Observable observable = new Observable();
     private final Lock lock = new ReentrantLock(true);
+    private final QuizDAO quizDAO = new QuizDAO();
+    private final QuestionDAO questionDAO = new QuestionDAO();
     private boolean shutdown = false;
 
     private Server() { }
@@ -53,6 +57,14 @@ public class Server {
         } finally {
             lock.unlock();
         }
+    }
+
+    public ArrayList<Quiz> getQuizzes() {
+        return quizDAO.listById();
+    }
+
+    public ArrayList<Question> getQuestionsOfQuiz(int quizID) {
+        return questionDAO.listByQuiz(quizID);
     }
 
     public static void main(String[] args) {
