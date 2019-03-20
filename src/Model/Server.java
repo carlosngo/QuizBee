@@ -53,7 +53,7 @@ public class Server {
     public void broadcast(Object message) {
         lock.lock();
         try {
-            observable.notifyObservers(message);
+            executor.execute(new MessageBroadcaster(message, observable));
         } finally {
             lock.unlock();
         }

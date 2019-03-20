@@ -78,4 +78,18 @@ public class Quiz {
         return true;
     }
 
+    // Reverse the toString() function. Given a String representation of a Quiz, build the Quiz object.
+    public static Quiz parseQuiz(String s) {
+        Quiz quiz = null;
+
+        return quiz;
+    }
+
+    // Include quiz ID, name, and description. Use pipe (|) delimited format to separate fields.
+    @Override
+    public String toString() {
+        String s = "";
+
+        return s;
+    }
 }

@@ -75,4 +75,19 @@ public class Question {
         for (int i = 0; i < NUMBER_OF_CHOICES; i++) if (choices.get(i).equals("")) return false;
         return true;
     }
+
+    // Reverse the toString() function. Given a String representation of a Question, build the Question object.
+    public static Question parseQuestion(String s) {
+        Question question = null;
+
+        return question;
+    }
+
+    // Include all fields EXCEPT startTime. Use pipe (|) delimited format to separate fields.
+    @Override
+    public String toString() {
+        String s = "";
+
+        return s;
+    }
 }
