@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="332.0" prefWidth="491.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ControllerForQML">
+   <children>
+      <ImageView fitHeight="332.0" fitWidth="523.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../resources/amatista-amethyst-beautiful-1121123.jpg" />
+         </image></ImageView>
+      <Label layoutX="11.0" layoutY="93.0" text="Username:" textFill="#dab151">
+         <font>
+            <Font name="Bauhaus 93" size="24.0" />
+         </font></Label>
+      <Label layoutX="11.0" layoutY="166.0" text="Password:" textFill="#eec055">
+         <font>
+            <Font name="Bauhaus 93" size="24.0" />
+         </font></Label>
+      <TextField fx:id="User" layoutX="137.0" layoutY="87.0" prefHeight="39.0" prefWidth="316.0" promptText="username" />
+      <Button fx:id="logConfirm" layoutX="114.0" layoutY="254.0" mnemonicParsing="false" text="LOGIN">
+         <font>
+            <Font name="Century Gothic" size="18.0" />
+         </font></Button>
+      <Button fx:id="goBack" layoutX="340.0" layoutY="254.0" mnemonicParsing="false" text="BACK">
+         <font>
+            <Font name="Century Gothic" size="18.0" />
+         </font></Button>
+      <PasswordField fx:id="pWord" layoutX="137.0" layoutY="160.0" prefHeight="39.0" prefWidth="316.0" promptText="password" />
+      <Label fx:id="userNameDisplay" layoutX="140.0" layoutY="14.0" text="Hello user" textFill="#70ebbe">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="49.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
