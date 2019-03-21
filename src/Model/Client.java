@@ -32,7 +32,19 @@ public abstract class Client {
         this.in = in;
     }
 
-    public abstract void startConnection(String ip, int port);
+    public void startConnection() {
+        try {
+            socket = new Socket(Server.IP_ADDRESS, Server.PORT_NUMBER);
+            out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String messageFromServer;
+            while ((messageFromServer = in.readLine()) != null) {
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void closeConnection() {
         try {

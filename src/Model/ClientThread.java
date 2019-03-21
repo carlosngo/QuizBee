@@ -25,12 +25,27 @@ public class ClientThread implements Runnable, Observer {
         String messageFromClient;
         try {
             while (!server.isShutDown() && (messageFromClient = in.readLine()) != null) {
-                Object reply;
+                StringBuilder reply = new StringBuilder();
                 if (messageFromClient.equals("GETQUIZZES")) {
-
+                    ArrayList<Quiz> quizzes = server.getQuizzes();
+                    for (int i = 0; i < quizzes.size(); i++) {
+                        reply.append(quizzes.get(i).toString());
+                        reply.append("\n");
+                    }
                 } else if (messageFromClient.startsWith("GETQUESTIONS")) {
+                    int quizID = Integer.parseInt(messageFromClient.substring(12).trim());
+                    ArrayList<Question> questions = server.getQuestionsOfQuiz(quizID);
+                    for (int i = 0; i < questions.size(); i++) {
+                        reply.append(questions.get(i).toString());
+                        reply.append("\n");
+                    }
+                } else if (messageFromClient.startsWith("JOINQUIZ")) {
+                    int quizID = Integer.parseInt(messageFromClient.substring(8).trim());
+                    Quiz q = server.getQuiz(quizID);
 
                 }
+                reply.append("END");
+                out.println(reply.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,6 +56,11 @@ public class ClientThread implements Runnable, Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        String message = (String) arg;
+        if (message.equals("STARTQUIZ")) {
 
+        } else if (message.equals("ENDQUIZ")) {
+
+        }
     }
 }
