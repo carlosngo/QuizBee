@@ -14,11 +14,11 @@
             <Image url="@../../resources/abstract-ai-art-373543.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="qMaster" layoutX="2.0" layoutY="189.0" mnemonicParsing="false" opacity="0.9" prefHeight="96.0" prefWidth="397.0" text="LOGIN AS QUIZ MASTER" textFill="#7c2c66" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Button fx:id="quizMasterBtn" layoutX="2.0" layoutY="189.0" mnemonicParsing="false" onAction="#loginAsQuizMaster" opacity="0.9" prefHeight="96.0" prefWidth="397.0" text="LOGIN AS QUIZ MASTER" textFill="#7c2c66" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font name="Bell MT" size="45.0" />
          </font></Button>
-      <Button fx:id="Particpant" layoutX="199.0" layoutY="304.0" mnemonicParsing="false" opacity="0.9" prefHeight="96.0" prefWidth="397.0" text="PLAY AS PARTICIPANT" textFill="#44942e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Button fx:id="participantBtn" layoutX="199.0" layoutY="304.0" mnemonicParsing="false" onAction="#playAsParticipant" opacity="0.9" prefHeight="96.0" prefWidth="397.0" text="PLAY AS PARTICIPANT" textFill="#44942e" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="42.0" />
          </font></Button>

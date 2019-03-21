@@ -16,10 +16,11 @@ public class ActivateRegistrationController extends Application{
     private static Stage primaryStage;
     @Override
     public void start(Stage theStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/View/RegistrationGUI.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/GUIwelcomePage.fxml"));
         primaryStage = theStage;
         primaryStage.setTitle("Song Adder");
-        primaryStage.setScene(new Scene(root, 471, 357));
+        primaryStage.setScene(new Scene(root, 677, 454));
+        primaryStage.setResizable(false);
         primaryStage.show();
 
     }

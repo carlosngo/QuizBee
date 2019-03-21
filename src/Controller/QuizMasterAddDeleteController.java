@@ -23,7 +23,7 @@ public class QuizMasterAddDeleteController {
         ActivateRegistrationController.getStage().setScene(new Scene(root, 474, 294));
     }
     public void logout() throws IOException, RuntimeException {
-        Parent root = FXMLLoader.load(getClass().getResource("/View/WelcomeScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/GUIwelcomePage.fxml"));
         ActivateRegistrationController.getStage().setScene(new Scene(root, 412, 517));
     }
 }
