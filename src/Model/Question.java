@@ -87,7 +87,9 @@ public class Question {
     @Override
     public String toString() {
         String s = "";
-
+        s = s + "|" + getQuestionID() + "|" + getQuizID() + "|" + getPrompt() + "|" + getAnswer() + "|";
+        for(String choice : getChoices())
+            s = s + choice + "|";
         return s;
     }
 }

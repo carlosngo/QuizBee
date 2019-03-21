@@ -89,7 +89,7 @@ public class Quiz {
     @Override
     public String toString() {
         String s = "";
-
+        s = s + getQuizID() + "|" + getName()+ "|" + getDescription();
         return s;
     }
 }
