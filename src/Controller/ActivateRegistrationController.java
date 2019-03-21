@@ -18,7 +18,7 @@ public class ActivateRegistrationController extends Application{
     public void start(Stage theStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/View/GUIwelcomePage.fxml"));
         primaryStage = theStage;
-        primaryStage.setTitle("Song Adder");
+        primaryStage.setTitle("Welcome to Network Quiz Bee!");
         primaryStage.setScene(new Scene(root, 677, 454));
         primaryStage.setResizable(false);
         primaryStage.show();

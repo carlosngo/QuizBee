@@ -37,11 +37,13 @@ public class ControllerForWelcome {
 
     public void loginAsQuizMaster() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/View/GUIquizMasterLogin.fxml"));
-        ActivateRegistrationController.getStage().setScene(new Scene(root, 390, 350));
+        ActivateRegistrationController.getStage().setScene(new Scene(root, 491, 332));
+        ActivateRegistrationController.getStage().setTitle("Login as Quiz Master");
     }
 
     public void playAsParticipant() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/View/GUIselectQuiz.fxml"));
         ActivateRegistrationController.getStage().setScene(new Scene(root, 592, 391));
+        ActivateRegistrationController.getStage().setTitle("Select a quiz");
     }
 }

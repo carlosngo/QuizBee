@@ -61,10 +61,12 @@ public class ControllerForQML {
 
         Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
         ActivateRegistrationController.getStage().setScene(new Scene(root, 390, 350));
+        ActivateRegistrationController.getStage().setTitle("Quiz Master");
     }
 
     public void back() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/View/GUIwelcomePage.fxml"));
         ActivateRegistrationController.getStage().setScene(new Scene(root, 677, 454));
+        ActivateRegistrationController.getStage().setTitle("Welcome to Network Quiz Bee!");
     }
 }

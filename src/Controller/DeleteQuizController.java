@@ -24,11 +24,16 @@ public class DeleteQuizController {
         usernameLbl.setText("Hi Carlos");
 
         // List of quiz names
+
+        // if quiz name is not empty, add it to the combo box
         quizNameCBox.getItems().addAll("Quiz Name 1", "Quiz Name 2", "Quiz Name 3");
+        // else, use the command below, so that it won't have a null pointer exception :D
+        // quizNameCBox.getItems().addAll("");
+
         quizNameCBox.getSelectionModel().selectFirst();
     }
 
-    public void delete() throws IOException {
+    public void delete() {
 
         if (quizNameCBox.getSelectionModel().getSelectedItem().isEmpty()) {
             Stage window = new Stage();
@@ -48,13 +53,34 @@ public class DeleteQuizController {
             window.setScene(new Scene(layout));
             window.showAndWait();
         }
+
         else {
             String quizToBeDeleted = quizNameCBox.getSelectionModel().getSelectedItem();
+            quizNameCBox.getItems().remove(quizToBeDeleted);
 
             // then delete whatever is selected
 
-            Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
-            ActivateRegistrationController.getStage().setScene(new Scene(root, 390, 350));
+
+            // An alert box will appear to inform user that selected quiz has been successfully deleted
+            Stage window = new Stage();
+
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Success!");
+            window.setMinWidth(250);
+
+            Button close = new Button("Close");
+            Label label = new Label("Quiz has been deleted!");
+
+            VBox layout = new VBox(20);
+            layout.setAlignment(Pos.CENTER);
+            layout.getChildren().addAll(label, close);
+            close.setOnAction(e -> window.close());
+
+            window.setScene(new Scene(layout));
+            window.showAndWait();
+
+//            Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
+//            ActivateRegistrationController.getStage().setScene(new Scene(root, 390, 350));
         }
     }
 
