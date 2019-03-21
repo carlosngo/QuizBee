@@ -7,6 +7,8 @@ import java.util.*;
 import java.sql.*;
 
 public class QuizDAO {
+    private static final String SQL_FIND_BY_ID =
+            "SELECT * FROM " + Database.QUIZ_TABLE + " WHERE PK_QuizID = ?";
     private static final String SQL_FIND_BY_NAME =
             "SELECT * FROM " + Database.QUIZ_TABLE + " WHERE Name = ?";
     private static final String SQL_LIST_BY_ID =
@@ -19,6 +21,8 @@ public class QuizDAO {
             "UPDATE " + Database.QUIZ_TABLE + " SET Name = ?, Description = ? WHERE PK_QuizID = ?";
     private static final String SQL_EXIST_NAME =
             "SELECT * FROM " + Database.QUIZ_TABLE + " WHERE Name = ?";
+
+    public Quiz find(int quizID) { return find(SQL_FIND_BY_ID, quizID); }
 
     public Quiz find(String name) {
         return find(SQL_FIND_BY_NAME, name);
