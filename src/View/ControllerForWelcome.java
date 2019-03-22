@@ -4,9 +4,15 @@
 
 package View;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import Controller.ActivateRegistrationController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 public class ControllerForWelcome {
@@ -18,15 +24,26 @@ public class ControllerForWelcome {
     private URL location;
 
     @FXML // fx:id="qMaster"
-    private Button qMaster; // Value injected by FXMLLoader
+    private Button quizMasterBtn; // Value injected by FXMLLoader
 
     @FXML // fx:id="Particpant"
-    private Button Particpant; // Value injected by FXMLLoader
+    private Button participantBtn; // Value injected by FXMLLoader
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert qMaster != null : "fx:id=\"qMaster\" was not injected: check your FXML file 'GUIwelcomePage.fxml'.";
-        assert Particpant != null : "fx:id=\"Particpant\" was not injected: check your FXML file 'GUIwelcomePage.fxml'.";
+        assert quizMasterBtn != null : "fx:id=\"qMaster\" was not injected: check your FXML file 'GUIwelcomePage.fxml'.";
+        assert participantBtn != null : "fx:id=\"Particpant\" was not injected: check your FXML file 'GUIwelcomePage.fxml'.";
+    }
 
+    public void loginAsQuizMaster() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/View/GUIquizMasterLogin.fxml"));
+        ActivateRegistrationController.getStage().setScene(new Scene(root, 491, 332));
+        ActivateRegistrationController.getStage().setTitle("Login as Quiz Master");
+    }
+
+    public void playAsParticipant() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/View/GUIselectQuiz.fxml"));
+        ActivateRegistrationController.getStage().setScene(new Scene(root, 592, 391));
+        ActivateRegistrationController.getStage().setTitle("Select a quiz");
     }
 }

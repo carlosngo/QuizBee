@@ -4,9 +4,15 @@
 
 package View;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import Controller.ActivateRegistrationController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -21,27 +27,46 @@ public class ControllerForQML {
     private URL location;
 
     @FXML // fx:id="goBack"
-    private Button goBack; // Value injected by FXMLLoader
+    private Button backBtn; // Value injected by FXMLLoader
 
     @FXML // fx:id="User"
-    private TextField User; // Value injected by FXMLLoader
+    private TextField usernameTxtFld; // Value injected by FXMLLoader
 
     @FXML // fx:id="logConfirm"
-    private Button logConfirm; // Value injected by FXMLLoader
+    private Button loginBtn; // Value injected by FXMLLoader
 
     @FXML // fx:id="pWord"
-    private PasswordField pWord; // Value injected by FXMLLoader
+    private PasswordField passwordFld; // Value injected by FXMLLoader
 
     @FXML // fx:id="userNameDisplay"
     private Label userNameDisplay; // Value injected by FXMLLoader
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert goBack != null : "fx:id=\"goBack\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
-        assert User != null : "fx:id=\"User\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
-        assert logConfirm != null : "fx:id=\"logConfirm\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
-        assert pWord != null : "fx:id=\"pWord\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
+        assert backBtn != null : "fx:id=\"goBack\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
+        assert usernameTxtFld != null : "fx:id=\"User\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
+        assert loginBtn != null : "fx:id=\"logConfirm\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
+        assert passwordFld != null : "fx:id=\"pWord\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
         assert userNameDisplay != null : "fx:id=\"userNameDisplay\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
 
+    }
+
+    public void login() throws IOException {
+        String username = usernameTxtFld.getText();
+        String password = passwordFld.getText();
+
+        // do something in DB
+
+        // if user is valid, go to quiz master mode
+
+        Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
+        ActivateRegistrationController.getStage().setScene(new Scene(root, 390, 350));
+        ActivateRegistrationController.getStage().setTitle("Quiz Master");
+    }
+
+    public void back() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/View/GUIwelcomePage.fxml"));
+        ActivateRegistrationController.getStage().setScene(new Scene(root, 677, 454));
+        ActivateRegistrationController.getStage().setTitle("Welcome to Network Quiz Bee!");
     }
 }
