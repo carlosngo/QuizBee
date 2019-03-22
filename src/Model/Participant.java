@@ -22,8 +22,4 @@ public class Participant extends Client {
         this.points = points;
     }
 
-    @Override
-    public void startConnection(String ip, int port) {
-
-    }
 }

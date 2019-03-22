@@ -28,7 +28,7 @@ public class Server {
 
     public boolean isShutDown() { return shutdown; }
 
-    public void startClientThread(ClientThread thread) {
+    public void startThread(Runnable thread) {
         executor.submit(thread);
     }
 
@@ -63,6 +63,10 @@ public class Server {
         return quizDAO.listById();
     }
 
+    public Quiz getQuiz(int quizID) {
+        return quizDAO.find(quizID);
+    }
+
     public ArrayList<Question> getQuestionsOfQuiz(int quizID) {
         return questionDAO.listByQuiz(quizID);
     }
@@ -76,7 +80,7 @@ public class Server {
                 Socket client = serverSocket.accept();
                 ClientThread thread = new ClientThread(client);
                 server.registerClientThread(thread);
-                server.startClientThread(thread);
+                server.startThread(thread);
             }
         } catch (IOException e) {
             e.printStackTrace();
