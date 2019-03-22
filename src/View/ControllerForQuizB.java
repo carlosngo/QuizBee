@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 
@@ -19,6 +20,9 @@ public class ControllerForQuizB {
 
     @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
+    
+    @FXML
+    private ListView<?> listOfParticipants;
 
     @FXML // fx:id="score"
     private Label score; // Value injected by FXMLLoader

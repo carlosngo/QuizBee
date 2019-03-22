@@ -13,7 +13,7 @@ public class MainForQML extends Application{
 
         Parent root = FXMLLoader.load(getClass().getResource("GUIquizMasterLogin.fxml"));
         primaryStage.setTitle("Log-in");
-        primaryStage.setScene(new Scene(root, 491, 332));
+        primaryStage.setScene(new Scene(root, 491, 270));
         primaryStage.show();
 	}
 	

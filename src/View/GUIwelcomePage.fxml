@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="454.0" fitWidth="677.0" layoutX="-1.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../resources/abstract-ai-art-373543.jpg" />
+            <Image url="@../../resources/54255586_2237860296276799_560798904950456320_n.png" />
          </image>
       </ImageView>
       <Button fx:id="qMaster" layoutX="2.0" layoutY="189.0" mnemonicParsing="false" opacity="0.9" prefHeight="96.0" prefWidth="397.0" text="LOGIN AS QUIZ MASTER" textFill="#7c2c66" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -23,7 +23,7 @@
          <font>
             <Font name="Arial Rounded MT Bold" size="42.0" />
          </font></Button>
-      <Label layoutX="114.0" layoutY="36.0" text="WELCOME!" textFill="#e5eba3">
+      <Label layoutX="114.0" layoutY="36.0" text="WELCOME!" textFill="#6a7210">
          <font>
             <Font name="Britannic Bold" size="96.0" />
          </font>
