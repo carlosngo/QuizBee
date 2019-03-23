@@ -16,7 +16,7 @@ public class QuizMasterAddDeleteController {
 
     public void addQuiz() throws IOException, RuntimeException {
         Parent root = FXMLLoader.load(getClass().getResource("/View/AddQuiz.fxml"));
-        ActivateRegistrationController.getStage().setScene(new Scene(root, 412, 517));
+        ActivateRegistrationController.getStage().setScene(new Scene(root, 590, 538));
         ActivateRegistrationController.getStage().setTitle("Add Quiz");
     }
     public void deleteQuiz() throws IOException, RuntimeException {
