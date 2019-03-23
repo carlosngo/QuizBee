@@ -1,1 +1,6 @@
 /bin/
+*.xml
+*.class
+
+**/out
+**/.idea

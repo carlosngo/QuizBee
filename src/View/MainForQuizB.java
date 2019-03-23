@@ -13,7 +13,7 @@ public class MainForQuizB extends Application{
 
         Parent root = FXMLLoader.load(getClass().getResource("GUIqB.fxml"));
         primaryStage.setTitle("Quiz !");
-        primaryStage.setScene(new Scene(root, 920, 607));
+        primaryStage.setScene(new Scene(root, 1075, 607));
         primaryStage.show();
 	}
 	public static void main(String[] args) {

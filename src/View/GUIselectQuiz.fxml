@@ -13,9 +13,9 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="391.0" fitWidth="592.0" layoutY="-37.0">
+                  <ImageView fitHeight="355.0" fitWidth="599.0" layoutX="-4.0" layoutY="-1.0">
                      <image>
-                        <Image url="@../../resources/hd-wallpaper-mountain-range-mountains-114979.jpg" />
+                        <Image url="@../../resources/54255586_2237860296276799_560798904950456320_n.png" />
                      </image>
                   </ImageView>
                   <ListView fx:id="Quizzes" layoutX="28.4" layoutY="29.4" prefHeight="322.0" prefWidth="500.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="15.0" />

@@ -9,12 +9,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
+<AnchorPane prefHeight="270.0" prefWidth="491.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ControllerForQML">
+=======
 <AnchorPane prefHeight="332.0" prefWidth="491.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ControllerForQML">
+>>>>>>> 1a7ba472897b0436e640f6f75b0de97ed83f2fec
    <children>
-      <ImageView fitHeight="332.0" fitWidth="523.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="332.0" fitWidth="491.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../resources/amatista-amethyst-beautiful-1121123.jpg" />
-         </image></ImageView>
+            <Image url="@../../resources/54255586_2237860296276799_560798904950456320_n.png" />
+         </image>
+      </ImageView>
       <Label layoutX="11.0" layoutY="93.0" text="Username:" textFill="#dab151">
          <font>
             <Font name="Bauhaus 93" size="24.0" />
@@ -23,6 +28,25 @@
          <font>
             <Font name="Bauhaus 93" size="24.0" />
          </font></Label>
+<<<<<<< HEAD
+      <TextField fx:id="User" layoutX="137.0" layoutY="87.0" prefHeight="39.0" prefWidth="316.0" promptText="username">
+         <font>
+            <Font name="Bauhaus 93" size="18.0" />
+         </font></TextField>
+      <Button fx:id="logConfirm" layoutX="119.0" layoutY="219.0" mnemonicParsing="false" text="LOGIN">
+         <font>
+            <Font name="Century Gothic" size="18.0" />
+         </font></Button>
+      <Button fx:id="goBack" layoutX="355.0" layoutY="219.0" mnemonicParsing="false" text="BACK">
+         <font>
+            <Font name="Century Gothic" size="18.0" />
+         </font></Button>
+      <PasswordField fx:id="pWord" layoutX="137.0" layoutY="160.0" prefHeight="39.0" prefWidth="316.0" promptText="password">
+         <font>
+            <Font name="Bauhaus 93" size="18.0" />
+         </font></PasswordField>
+      <Label fx:id="userNameDisplay" layoutX="140.0" layoutY="14.0" text="Hello user" textFill="#397c63">
+=======
       <TextField fx:id="usernameTxtFld" layoutX="137.0" layoutY="87.0" onAction="#login" prefHeight="39.0" prefWidth="316.0" promptText="username" />
       <Button fx:id="loginBtn" layoutX="114.0" layoutY="254.0" mnemonicParsing="false" onAction="#login" text="LOGIN">
          <font>
@@ -34,6 +58,7 @@
          </font></Button>
       <PasswordField fx:id="passwordFld" layoutX="137.0" layoutY="160.0" onAction="#login" prefHeight="39.0" prefWidth="316.0" promptText="password" />
       <Label fx:id="userNameDisplay" layoutX="140.0" layoutY="14.0" text="Hello user" textFill="#70ebbe">
+>>>>>>> 1a7ba472897b0436e640f6f75b0de97ed83f2fec
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="49.0" />
          </font>
