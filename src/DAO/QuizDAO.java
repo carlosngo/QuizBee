@@ -59,7 +59,7 @@ public class QuizDAO {
     }
 
     public void create(Quiz quiz) throws IllegalArgumentException {
-        if (quiz.getQuizID() != -1) {
+        if (quiz.getQuizID() != -1 || existName(quiz.getName())) {
             throw new IllegalArgumentException("Quiz is already created, the quiz ID is not null.");
         }
 

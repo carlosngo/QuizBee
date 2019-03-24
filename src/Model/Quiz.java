@@ -61,19 +61,34 @@ public class Quiz {
 
     // Reverse the toString() function. Given a String representation of a Quiz, build the Quiz object.
     public static Quiz parseQuiz(String s) {
-        Quiz quiz = null;
-        String[] parts = s.split("|");
-        quiz.setQuizID(Integer.parseInt(parts[0]));
-        quiz.setName(parts[1]);
-        quiz.setDescription(parts[2]);
+        Quiz quiz = new Quiz();
+        String[] lines = s.split("\\r?\\n");
+//        for (int i = 0; i < lines.length; i++) System.out.println(lines[i]);
+        String[] quizInfo = lines[0].split("\\|");
+        quiz.setQuizID(Integer.parseInt(quizInfo[0]));
+        quiz.setName(quizInfo[1]);
+        quiz.setDescription(quizInfo[2]);
+        for (int i = 1; i < lines.length; i++) {
+            quiz.setQuestion(i - 1, Question.parseQuestion(lines[i]));
+        }
         return quiz;
     }
 
     // Include quiz ID, name, and description. Use pipe (|) delimited format to separate fields.
     @Override
     public String toString() {
-        String s = "";
-        s = s + getQuizID() + "|" + getName()+ "|" + getDescription();
-        return s;
+        StringBuilder sb = new StringBuilder();
+        sb.append(getQuizID());
+        sb.append("|");
+        sb.append(getName());
+        sb.append("|");
+        sb.append(getDescription());
+        sb.append("\n");
+        for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
+            sb.append(questions.get(i).toString());
+            sb.append("\n");
+        }
+//        System.out.println(sb.toString());
+        return sb.toString();
     }
 }

@@ -27,15 +27,28 @@ public class ClientThread implements Runnable, Observer {
         try {
             while (!server.isShutDown() && (messageFromClient = in.readLine()) != null) {
                 System.out.println("Received the message: " + messageFromClient + " from client.");
+
                 StringBuilder reply = new StringBuilder();
                 if (messageFromClient.equals("GETQUIZZES")) {
+
                     ArrayList<Quiz> quizzes = server.getQuizzes();
+                    reply.append(quizzes.size());
+                    reply.append("\n");
                     for (int i = 0; i < quizzes.size(); i++) {
+                        if (i > 0) reply.append("\n");
                         reply.append(quizzes.get(i).toString());
-                        reply.append("\n");
                     }
                 } else if (messageFromClient.startsWith("ADDQUIZ")) {
-                    Quiz quiz = Quiz.parseQuiz(messageFromClient.substring(7).trim());
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(messageFromClient.substring(7).trim());
+                    sb.append("\n");
+                    messageFromClient = in.readLine();
+                    while (!messageFromClient.equals("END")) {
+                        sb.append(messageFromClient);
+                        sb.append("\n");
+                        messageFromClient = in.readLine();
+                    }
+                    Quiz quiz = Quiz.parseQuiz(sb.toString());
                     server.createQuiz(quiz);
                 } else if (messageFromClient.startsWith("GETQUESTIONS")) {
                     int quizID = Integer.parseInt(messageFromClient.substring(12).trim());
@@ -52,6 +65,7 @@ public class ClientThread implements Runnable, Observer {
                     server.startQuiz(Integer.parseInt(messageFromClient.substring(9).trim()));
                 }
                 reply.append("END");
+                System.out.println("Sending the following message to the client: " + reply.toString());
                 out.println(reply.toString());
             }
         } catch (IOException e) {

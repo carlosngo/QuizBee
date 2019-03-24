@@ -75,7 +75,11 @@ public class Server {
     }
 
     public void createQuiz(Quiz q) {
-        quizDAO.create(q);
+        try {
+            quizDAO.create(q);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Quiz was not added..");
+        }
     }
 
     public void startQuiz(int quizID) {

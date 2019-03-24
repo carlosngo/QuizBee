@@ -79,14 +79,15 @@ public class Question {
 
     // Reverse the toString() function. Given a String representation of a Question, build the Question object.
     public static Question parseQuestion(String s) {
-        Question question = null;
-        String[] parts = s.split("|");
+        Question question = new Question();
+        String[] parts = s.split("\\|");
         question.setQuestionID(Integer.parseInt(parts[0]));
         question.setQuizID(Integer.parseInt(parts[1]));
         question.setPrompt(parts[2]);
         question.setAnswer(Integer.parseInt(parts[3]));
         int index = 0;
         for(int i=4; i<parts.length; i++){
+//            System.out.println(parts[i]);
             question.setChoice(index, parts[i]);
             index++;
         }
@@ -96,10 +97,19 @@ public class Question {
     // Include all fields EXCEPT startTime. Use pipe (|) delimited format to separate fields.
     @Override
     public String toString() {
-        String s = "";
-        s = s + getQuestionID() + "|" + getQuizID() + "|" + getPrompt() + "|" + getAnswer() + "|";
-        for(String choice : getChoices())
-            s = s + choice + "|";
-        return s;
+        StringBuilder sb = new StringBuilder();
+        sb.append(getQuestionID());
+        sb.append("|");
+        sb.append(getQuizID());
+        sb.append("|");
+        sb.append(getPrompt());
+        sb.append("|");
+        sb.append(getAnswer());
+        sb.append("|");
+        for (int i = 0; i < NUMBER_OF_CHOICES; i++) {
+            if (i > 0) sb.append("|");
+            sb.append(choices.get(i));
+        }
+        return sb.toString();
     }
 }
