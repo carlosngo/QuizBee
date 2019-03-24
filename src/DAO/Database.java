@@ -19,7 +19,8 @@ public final class Database {
             if (con == null)
                 con = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
         } catch(SQLException e) {
-            System.out.println("Cannot connect to database.");
+            e.printStackTrace();
+//            System.out.println("Cannot connect to database.");
         }
         return con;
     }

@@ -80,6 +80,11 @@ public abstract class Client {
     public static void main(String[] args) {
         Participant client = new Participant();
         client.startConnection();
+//        GETQUIZ Test
+//        ArrayList<Quiz> quizzes = client.getQuizzes();
+//        System.out.println("Number of quizzes = " + quizzes.size());
+
+//        ADDQUIZ Test
         Quiz q = new Quiz();
         q.setName("My Quiz");
         q.setDescription("A quiz made by the developers.");
@@ -124,7 +129,11 @@ public abstract class Client {
         q.setQuestion(3, q4);
         q.setQuestion(4, q5);
         System.out.println("Adding quiz: " + q);
+        for (Question que : q.getQuestions()) {
+            System.out.println(que);
+        }
         client.addQuiz(q);
         System.out.println("Quiz successfully added.");
+        client.closeConnection();
     }
 }
