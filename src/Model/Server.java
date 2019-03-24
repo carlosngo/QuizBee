@@ -17,7 +17,7 @@ public class Server {
     private final Observable observable = new Observable();
     private final Lock lock = new ReentrantLock(true);
     private final QuizDAO quizDAO = new QuizDAO();
-    private final HashMap<Integer, QuizThread> quizThreads = new HashMap<>();
+    private final HashMap<String, QuizThread> quizThreads = new HashMap<>();
     private final QuestionDAO questionDAO = new QuestionDAO();
     private boolean shutdown = false;
 
@@ -60,30 +60,31 @@ public class Server {
         }
     }
 
-    public void addParticipant(ClientThread clientThread, int quizID) {
-        QuizThread quizThread = quizThreads.get(quizID);
+    public void addParticipant(ClientThread clientThread, String quizName, String participantName) {
+        QuizThread quizThread = quizThreads.get(quizName);
         if (quizThread == null) {
-            quizThread = new QuizThread(quizDAO.find(quizID));
-            quizThread.addObserver(clientThread);
-            quizThreads.put(quizID, quizThread);
-        } else quizThread.addObserver(clientThread);
+            quizThread = new QuizThread(quizDAO.find(quizName));
+            quizThreads.put(quizName, quizThread);
+        }
+        quizThread.broadcast("JOINQUIZ " + participantName);
+        quizThread.addObserver(clientThread);
     }
 
     public void removeParticipant(ClientThread clientThread, int quizID) {
         QuizThread quizThread = quizThreads.get(quizID);
-        if (quizThread != null) quizThread.removeObserver(clientThread);
+        if (quizThread != null) quizThread.deleteObserver(clientThread);
     }
 
     public void createQuiz(Quiz q) {
         try {
             quizDAO.create(q);
         } catch (IllegalArgumentException e) {
-            System.out.println("Quiz was not added..");
+            System.out.println("Quiz was not added.");
         }
     }
 
-    public void startQuiz(int quizID) {
-        startThread(quizThreads.get(quizID));
+    public void startQuiz(String quizName) {
+        startThread(quizThreads.get(quizName));
     }
 
     public ArrayList<Quiz> getQuizzes() {

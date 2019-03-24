@@ -5,11 +5,10 @@ import java.util.*;
 /*
     Thread that handles the game logic.
  */
-public class QuizThread implements Runnable {
+public class QuizThread extends Observable implements Runnable {
 
     private final int MAX_PARTICIPANTS = 4;
     private final Quiz quiz = new Quiz();
-    private final Observable observable = new Observable();
 
     public QuizThread(Quiz quiz) {
         this.quiz.setQuizID(quiz.getQuizID());
@@ -26,16 +25,15 @@ public class QuizThread implements Runnable {
         broadcast("ENDQUIZ");
     }
 
-    public void addObserver(ClientThread o) {
-        observable.addObserver(o);
-    }
-
-    public void removeObserver(ClientThread o) {
-        observable.deleteObserver(o);
+    @Override
+    public boolean hasChanged() {
+        return true;
     }
 
     public void broadcast(Object message) {
-        observable.notifyObservers(message);
+        System.out.println("QuizThread: Broadcasting the following to " + countObservers() + " quiz participants: " + message);
+        setChanged();
+        notifyObservers(message);
     }
 
 }

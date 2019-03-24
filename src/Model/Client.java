@@ -3,49 +3,58 @@ package Model;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.concurrent.*;
 
-public abstract class Client {
+
+public class Client {
+    // Network variables to communicate with the server
     private Socket socket;
     private PrintWriter outToServer;
     private BufferedReader inFromServer;
-    private BufferedReader inFromUser;
+    private final ExecutorService executor = Executors.newCachedThreadPool();
 
-    public Socket getSocket() {
-        return socket;
-    }
+    // User variables
+    private String name;
+    private int points;
+    private boolean inGame;
 
-    public void setSocket(Socket socket) {
-        this.socket = socket;
-    }
-
-    public PrintWriter getOutToServer() {
-        return outToServer;
-    }
-
-    public void setOutToServer(PrintWriter outToServer) {
-        this.outToServer = outToServer;
-    }
-
-    public BufferedReader getInFromServer() {
-        return inFromServer;
-    }
-
-    public void setInFromServer(BufferedReader inFromServer) {
-        this.inFromServer = inFromServer;
-    }
-
-    public void startConnection() {
+    public Client() {
         try {
             socket = new Socket(Server.IP_ADDRESS, Server.PORT_NUMBER);
             outToServer = new PrintWriter(socket.getOutputStream(), true);
             inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String messageFromServer;
-//            while ((messageFromServer = inFromServer.readLine()) != null) {
-//
-//            }
+            name = "";
+            points = 0;
+            inGame = false;
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
     }
 
     public void closeConnection() {
@@ -97,8 +106,72 @@ public abstract class Client {
         }
     }
 
+    public void joinQuiz(String quizName) {
+        inGame = true;
+        outToServer.println("JOINQUIZ " + quizName + "|" + name);
+        executor.execute(() -> {
+            try {
+                while (inGame) {
+                    String messageFromServer = inFromServer.readLine();
+                    System.out.println("Received the following broadcast: " + messageFromServer);
+                    if (messageFromServer.equals("STARTQUIZ")) {
+                        System.out.println("Starting quiz...");
+                    } else if (messageFromServer.equals("ENDQUIZ")) {
+                        System.out.println("Finishing quiz...");
+                        inGame = false;
+                    } else if (messageFromServer.startsWith("JOINQUIZ")) {
+                        String newParticipant = messageFromServer.substring(9).trim();
+                        System.out.println(newParticipant + " has joined the fray.");
+                    } else if (messageFromServer.startsWith("LEAVEQUIZ")) {
+                        String coward = messageFromServer.substring(10).trim();
+                        System.out.println(coward + " has left the game.");
+                    } else if (messageFromServer.equals("ENDQUIZ")) {
+                        System.out.println("Finishing quiz...");
+                        inGame = false;
+                    } else {
+                        System.out.println("Ignored the message: " + messageFromServer);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+
+    public void leaveQuiz(String quizName) {
+        inGame = false;
+    }
+
+    public void startQuiz(String quizName) {
+        outToServer.println("STARTQUIZ " + quizName);
+    }
+
     public static void main(String[] args) {
-//        Participant client = new Participant();
+        Client client = new Client();
+        client.setName("Carlos");
+        JFrame frm = new JFrame("Test");
+        JPanel content = new JPanel();
+        JButton getQuiz = new JButton("Get Quizzes");
+        getQuiz.addActionListener(e -> {
+            client.getQuizzes();
+        });
+        content.add(getQuiz);
+        JButton joinQuiz = new JButton("Join Quiz");
+        joinQuiz.addActionListener(e -> {
+          client.joinQuiz("My Quiz");
+        });
+        content.add(joinQuiz);
+        JButton startQuiz = new JButton("Start Quiz");
+        startQuiz.addActionListener(e -> {
+            client.startQuiz("My Quiz");
+        });
+        content.add(startQuiz);
+        frm.setContentPane(content);
+        frm.setVisible(true);
+        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frm.pack();
+
 //        client.startConnection();
 //
 ////        ADDQUIZ Test
