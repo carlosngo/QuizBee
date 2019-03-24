@@ -80,7 +80,16 @@ public class Question {
     // Reverse the toString() function. Given a String representation of a Question, build the Question object.
     public static Question parseQuestion(String s) {
         Question question = null;
-
+        String[] parts = s.split("|");
+        question.setQuestionID(Integer.parseInt(parts[0]));
+        question.setQuizID(Integer.parseInt(parts[1]));
+        question.setPrompt(parts[2]);
+        question.setAnswer(Integer.parseInt(parts[3]));
+        int index = 0;
+        for(int i=4; i<parts.length; i++){
+            question.setChoice(index, parts[i]);
+            index++;
+        }
         return question;
     }
 
@@ -88,7 +97,7 @@ public class Question {
     @Override
     public String toString() {
         String s = "";
-        s = s + "|" + getQuestionID() + "|" + getQuizID() + "|" + getPrompt() + "|" + getAnswer() + "|";
+        s = s + getQuestionID() + "|" + getQuizID() + "|" + getPrompt() + "|" + getAnswer() + "|";
         for(String choice : getChoices())
             s = s + choice + "|";
         return s;
