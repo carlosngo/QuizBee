@@ -62,7 +62,10 @@ public class Quiz {
     // Reverse the toString() function. Given a String representation of a Quiz, build the Quiz object.
     public static Quiz parseQuiz(String s) {
         Quiz quiz = null;
-
+        String[] parts = s.split("|");
+        quiz.setQuizID(Integer.parseInt(parts[0]));
+        quiz.setName(parts[1]);
+        quiz.setDescription(parts[2]);
         return quiz;
     }
 
