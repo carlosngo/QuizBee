@@ -4,8 +4,9 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -22,14 +23,6 @@
          </font></Label>
         <TextField fx:id="descriptionTxtFld" alignment="TOP_LEFT" layoutX="192.0" layoutY="56.0" prefHeight="66.0" prefWidth="338.0" promptText="Description" />
         <Separator layoutX="30.0" layoutY="141.0" prefHeight="0.0" prefWidth="530.0" />
-        <Separator layoutX="35.0" layoutY="463.0" prefHeight="3.0" prefWidth="520.0" />
-        <TextField fx:id="questionNameTxtFld" alignment="TOP_LEFT" layoutX="194.0" layoutY="161.0" prefHeight="44.0" prefWidth="338.0" promptText="Question Name" />
-        <Separator layoutX="197.0" layoutY="309.0" prefHeight="3.0" prefWidth="329.0" />
-        <Separator layoutX="360.0" layoutY="213.0" orientation="VERTICAL" prefHeight="200.0" />
-        <TextField fx:id="choiceATxtFld" alignment="TOP_LEFT" layoutX="202.0" layoutY="227.0" prefHeight="73.0" prefWidth="149.0" promptText="Choice A" />
-        <TextField fx:id="choiceBTxtFld" alignment="TOP_LEFT" layoutX="372.0" layoutY="227.0" prefHeight="73.0" prefWidth="149.0" promptText="Choice B" />
-        <TextField fx:id="choiceCTxtFld" alignment="TOP_LEFT" layoutX="202.0" layoutY="319.0" prefHeight="73.0" prefWidth="149.0" promptText="Choice C" />
-        <TextField fx:id="choiceDTxtFld" alignment="TOP_LEFT" layoutX="372.0" layoutY="319.0" prefHeight="73.0" prefWidth="149.0" promptText="Choice D" />
         <Button fx:id="saveBtn" layoutX="168.0" layoutY="480.0" mnemonicParsing="false" onAction="#save" prefHeight="44.0" prefWidth="98.0" text="Save">
          <font>
             <Font name="Book Antiqua" size="12.0" />
@@ -38,16 +31,106 @@
          <font>
             <Font name="Book Antiqua" size="12.0" />
          </font></Button>
-      <Label layoutX="360.0" layoutY="426.0" prefHeight="18.0" prefWidth="61.0" text="Answer:">
+      <Button fx:id="backBtn" layoutX="29.0" layoutY="497.0" mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="54.0" text="Back">
          <font>
             <Font name="Book Antiqua" size="12.0" />
          </font>
-      </Label>
-      <ComboBox fx:id="answerCBox" layoutX="424.0" layoutY="422.0" prefHeight="26.0" prefWidth="98.0" />
-      <ToggleButton fx:id="question1" layoutX="30.0" layoutY="161.0" mnemonicParsing="false" onAction="#question1" prefHeight="50.0" prefWidth="134.0" text="Question 1" />
-      <ToggleButton fx:id="question2" layoutX="30.0" layoutY="211.0" mnemonicParsing="false" onAction="#question2" prefHeight="50.0" prefWidth="134.0" text="Question 2" />
-      <ToggleButton fx:id="question4" layoutX="30.0" layoutY="309.0" mnemonicParsing="false" onAction="#question4" prefHeight="50.0" prefWidth="134.0" text="Question 4" />
-      <ToggleButton fx:id="question3" layoutX="30.0" layoutY="261.0" mnemonicParsing="false" onAction="#question3" prefHeight="50.0" prefWidth="134.0" text="Question 3" />
-      <ToggleButton fx:id="question5" layoutX="30.0" layoutY="359.0" mnemonicParsing="false" onAction="#question5" prefHeight="50.0" prefWidth="134.0" text="Question 5" />
+      </Button>
+      <TabPane layoutX="14.0" layoutY="141.0" prefHeight="323.0" prefWidth="570.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="question1" text="Question 1">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="270.0" prefWidth="411.0">
+                     <children>
+                         <TextField fx:id="questionNameTxtFld1" alignment="TOP_LEFT" layoutX="46.0" layoutY="21.0" prefHeight="44.0" prefWidth="338.0" promptText="Question Name" />
+                         <TextField fx:id="choiceATxtFld1" alignment="TOP_LEFT" layoutX="46.0" layoutY="74.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice A" />
+                         <TextField fx:id="choiceBTxtFld1" alignment="TOP_LEFT" layoutX="309.0" layoutY="74.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice B" />
+                         <TextField fx:id="choiceCTxtFld1" alignment="TOP_LEFT" layoutX="46.0" layoutY="163.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice C" />
+                         <TextField fx:id="choiceDTxtFld1" alignment="TOP_LEFT" layoutX="309.0" layoutY="163.0" prefHeight="73.0" prefWidth="216.0" promptText="Choice D" />
+                         <Label layoutX="354.0" layoutY="256.0" prefHeight="18.0" prefWidth="61.0" text="Answer:">
+                           <font>
+                              <Font name="Book Antiqua" size="12.0" />
+                           </font>
+                        </Label>
+                         <ComboBox fx:id="answerCBox1" layoutX="426.0" layoutY="252.0" prefHeight="26.0" prefWidth="98.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="question2" text="Question 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                         <TextField fx:id="questionNameTxtFld2" alignment="TOP_LEFT" layoutX="46.0" layoutY="21.0" prefHeight="44.0" prefWidth="338.0" promptText="Question Name" />
+                         <TextField fx:id="choiceATxtFld2" alignment="TOP_LEFT" layoutX="46.0" layoutY="74.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice A" />
+                         <TextField fx:id="choiceBTxtFld2" alignment="TOP_LEFT" layoutX="309.0" layoutY="74.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice B" />
+                         <TextField fx:id="choiceCTxtFld2" alignment="TOP_LEFT" layoutX="46.0" layoutY="163.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice C" />
+                         <TextField fx:id="choiceDTxtFld2" alignment="TOP_LEFT" layoutX="309.0" layoutY="163.0" prefHeight="73.0" prefWidth="216.0" promptText="Choice D" />
+                         <Label layoutX="354.0" layoutY="256.0" prefHeight="18.0" prefWidth="61.0" text="Answer:">
+                           <font>
+                              <Font name="Book Antiqua" size="12.0" />
+                           </font>
+                        </Label>
+                         <ComboBox fx:id="answerCBox2" layoutX="426.0" layoutY="252.0" prefHeight="26.0" prefWidth="98.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="question3" text="Question 3">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                         <TextField fx:id="questionNameTxtFld3" alignment="TOP_LEFT" layoutX="46.0" layoutY="21.0" prefHeight="44.0" prefWidth="338.0" promptText="Question Name" />
+                         <TextField fx:id="choiceATxtFld3" alignment="TOP_LEFT" layoutX="46.0" layoutY="74.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice A" />
+                         <TextField fx:id="choiceBTxtFld3" alignment="TOP_LEFT" layoutX="309.0" layoutY="74.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice B" />
+                         <TextField fx:id="choiceCTxtFld3" alignment="TOP_LEFT" layoutX="46.0" layoutY="163.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice C" />
+                         <TextField fx:id="choiceDTxtFld3" alignment="TOP_LEFT" layoutX="309.0" layoutY="163.0" prefHeight="73.0" prefWidth="216.0" promptText="Choice D" />
+                         <Label layoutX="354.0" layoutY="256.0" prefHeight="18.0" prefWidth="61.0" text="Answer:">
+                           <font>
+                              <Font name="Book Antiqua" size="12.0" />
+                           </font>
+                        </Label>
+                         <ComboBox fx:id="answerCBox3" layoutX="426.0" layoutY="252.0" prefHeight="26.0" prefWidth="98.0" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="question4" text="Question 4">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                         <TextField fx:id="questionNameTxtFld4" alignment="TOP_LEFT" layoutX="46.0" layoutY="21.0" prefHeight="44.0" prefWidth="338.0" promptText="Question Name" />
+                         <TextField fx:id="choiceATxtFld4" alignment="TOP_LEFT" layoutX="46.0" layoutY="74.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice A" />
+                         <TextField fx:id="choiceBTxtFld4" alignment="TOP_LEFT" layoutX="309.0" layoutY="74.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice B" />
+                         <TextField fx:id="choiceCTxtFld4" alignment="TOP_LEFT" layoutX="46.0" layoutY="163.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice C" />
+                         <TextField fx:id="choiceDTxtFld4" alignment="TOP_LEFT" layoutX="309.0" layoutY="163.0" prefHeight="73.0" prefWidth="216.0" promptText="Choice D" />
+                         <Label layoutX="354.0" layoutY="256.0" prefHeight="18.0" prefWidth="61.0" text="Answer:">
+                           <font>
+                              <Font name="Book Antiqua" size="12.0" />
+                           </font>
+                        </Label>
+                         <ComboBox fx:id="answerCBox4" layoutX="426.0" layoutY="252.0" prefHeight="26.0" prefWidth="98.0" />
+                     </children></AnchorPane>
+                    
+              </content>
+            </Tab>
+            <Tab fx:id="question5" text="Question 5">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="293.0" prefWidth="543.0">
+                     <children>
+                        <TextField fx:id="questionNameTxtFld5" alignment="TOP_LEFT" layoutX="46.0" layoutY="21.0" prefHeight="44.0" prefWidth="338.0" promptText="Question Name" />
+                        <TextField fx:id="choiceATxtFld5" alignment="TOP_LEFT" layoutX="46.0" layoutY="74.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice A" />
+                        <TextField fx:id="choiceBTxtFld5" alignment="TOP_LEFT" layoutX="309.0" layoutY="74.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice B" />
+                        <TextField fx:id="choiceCTxtFld5" alignment="TOP_LEFT" layoutX="46.0" layoutY="163.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice C" />
+                        <TextField fx:id="choiceDTxtFld5" alignment="TOP_LEFT" layoutX="309.0" layoutY="163.0" prefHeight="73.0" prefWidth="216.0" promptText="Choice D" />
+                        <Label layoutX="354.0" layoutY="256.0" prefHeight="18.0" prefWidth="61.0" text="Answer:">
+                           <font>
+                              <Font name="Book Antiqua" size="12.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="answerCBox5" layoutX="426.0" layoutY="252.0" prefHeight="26.0" prefWidth="98.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
     </children>
 </AnchorPane>
