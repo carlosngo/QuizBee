@@ -3,7 +3,7 @@ package Model;
 import java.util.*;
 
 public class Question {
-    private final int NUMBER_OF_CHOICES = 4;
+    public static final int NUMBER_OF_CHOICES = 4;
     private int questionID;
     private int quizID;
     private String prompt;
@@ -13,7 +13,8 @@ public class Question {
 
     public Question() {
         questionID = -1;
-        choices = new ArrayList<>(4);
+        choices = new ArrayList<>();
+        for (int i = 0; i < NUMBER_OF_CHOICES; i++) choices.add("");
         answer = -1;
     }
 

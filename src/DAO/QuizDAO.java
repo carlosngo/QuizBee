@@ -81,7 +81,11 @@ public class QuizDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < quiz.getQuestions().size(); i++) new QuestionDAO().create(quiz.getQuestions().get(i), quiz);
+        for (int i = 0; i < quiz.getQuestions().size(); i++) {
+            Question q = quiz.getQuestions().get(i);
+            q.setQuizID(quiz.getQuizID());
+            new QuestionDAO().create(q, quiz);
+        }
     }
 
     public void update(Quiz quiz) throws IllegalArgumentException {

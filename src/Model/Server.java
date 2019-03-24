@@ -17,6 +17,7 @@ public class Server {
     private final Observable observable = new Observable();
     private final Lock lock = new ReentrantLock(true);
     private final QuizDAO quizDAO = new QuizDAO();
+    private final HashMap<Integer, QuizThread> quizThreads = new HashMap<>();
     private final QuestionDAO questionDAO = new QuestionDAO();
     private boolean shutdown = false;
 
@@ -59,6 +60,28 @@ public class Server {
         }
     }
 
+    public void addParticipant(ClientThread clientThread, int quizID) {
+        QuizThread quizThread = quizThreads.get(quizID);
+        if (quizThread == null) {
+            quizThread = new QuizThread(quizDAO.find(quizID));
+            quizThread.addObserver(clientThread);
+            quizThreads.put(quizID, quizThread);
+        } else quizThread.addObserver(clientThread);
+    }
+
+    public void removeParticipant(ClientThread clientThread, int quizID) {
+        QuizThread quizThread = quizThreads.get(quizID);
+        if (quizThread != null) quizThread.removeObserver(clientThread);
+    }
+
+    public void createQuiz(Quiz q) {
+        quizDAO.create(q);
+    }
+
+    public void startQuiz(int quizID) {
+        startThread(quizThreads.get(quizID));
+    }
+
     public ArrayList<Quiz> getQuizzes() {
         return quizDAO.listById();
     }
@@ -78,9 +101,11 @@ public class Server {
             serverSocket = new ServerSocket(PORT_NUMBER);
             while (!server.isShutDown()) {
                 Socket client = serverSocket.accept();
+                System.out.println("Client accepted.");
                 ClientThread thread = new ClientThread(client);
                 server.registerClientThread(thread);
                 server.startThread(thread);
+
             }
         } catch (IOException e) {
             e.printStackTrace();

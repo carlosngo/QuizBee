@@ -3,7 +3,7 @@ package Model;
 import java.util.*;
 
 public class Quiz {
-    private final int NUMBER_OF_QUESTIONS = 5;
+    public static final int NUMBER_OF_QUESTIONS = 5;
     private int quizID;
     private String name;
     private String description;
@@ -13,7 +13,8 @@ public class Quiz {
         quizID = -1;
         name = "";
         description = "";
-        questions = new ArrayList<>(5);
+        questions = new ArrayList<>();
+        for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) questions.add(new Question());
     }
 
     public int getQuizID() {

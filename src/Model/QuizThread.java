@@ -8,7 +8,15 @@ import java.util.*;
 public class QuizThread implements Runnable {
 
     private final int MAX_PARTICIPANTS = 4;
+    private final Quiz quiz = new Quiz();
     private final Observable observable = new Observable();
+
+    public QuizThread(Quiz quiz) {
+        this.quiz.setQuizID(quiz.getQuizID());
+        this.quiz.setName(quiz.getName());
+        this.quiz.setDescription(quiz.getDescription());
+        this.quiz.setQuestions(quiz.getQuestions());
+    }
 
     @Override
     public void run() {
@@ -20,7 +28,6 @@ public class QuizThread implements Runnable {
 
     public void addObserver(ClientThread o) {
         observable.addObserver(o);
-        if (observable.countObservers() == MAX_PARTICIPANTS) Server.getInstance().startThread(this);
     }
 
     public void removeObserver(ClientThread o) {

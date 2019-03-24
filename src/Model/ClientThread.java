@@ -21,10 +21,12 @@ public class ClientThread implements Runnable, Observer {
 
     @Override
     public void run() {
+        System.out.println("Started thread for client.");
         Server server = Server.getInstance();
         String messageFromClient;
         try {
             while (!server.isShutDown() && (messageFromClient = in.readLine()) != null) {
+                System.out.println("Received the message: " + messageFromClient + " from client.");
                 StringBuilder reply = new StringBuilder();
                 if (messageFromClient.equals("GETQUIZZES")) {
                     ArrayList<Quiz> quizzes = server.getQuizzes();
@@ -32,6 +34,9 @@ public class ClientThread implements Runnable, Observer {
                         reply.append(quizzes.get(i).toString());
                         reply.append("\n");
                     }
+                } else if (messageFromClient.startsWith("ADDQUIZ")) {
+                    Quiz quiz = Quiz.parseQuiz(messageFromClient.substring(7).trim());
+                    server.createQuiz(quiz);
                 } else if (messageFromClient.startsWith("GETQUESTIONS")) {
                     int quizID = Integer.parseInt(messageFromClient.substring(12).trim());
                     ArrayList<Question> questions = server.getQuestionsOfQuiz(quizID);
@@ -40,9 +45,11 @@ public class ClientThread implements Runnable, Observer {
                         reply.append("\n");
                     }
                 } else if (messageFromClient.startsWith("JOINQUIZ")) {
-                    int quizID = Integer.parseInt(messageFromClient.substring(8).trim());
-                    Quiz q = server.getQuiz(quizID);
-
+                    server.addParticipant(this, Integer.parseInt(messageFromClient.substring(8).trim()));
+                } else if (messageFromClient.startsWith("LEAVEQUIZ")) {
+                    server.removeParticipant(this, Integer.parseInt(messageFromClient.substring(9).trim()));
+                } else if (messageFromClient.startsWith("STARTQUIZ")) {
+                    server.startQuiz(Integer.parseInt(messageFromClient.substring(9).trim()));
                 }
                 reply.append("END");
                 out.println(reply.toString());
