@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="357.0" prefWidth="553.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LobbyController">
+   <children>
+      <Text fill="#f50505" layoutX="36.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUIZ:">
+         <font>
+            <Font name="Bauhaus 93" size="36.0" />
+         </font>
+      </Text>
+      <Text fill="#448b96" layoutX="36.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Participants:">
+         <font>
+            <Font name="Bauhaus 93" size="36.0" />
+         </font>
+      </Text>
+      <ListView fx:id="max4ListofParticipants" layoutX="39.0" layoutY="132.0" prefHeight="200.0" prefWidth="379.0" />
+      <Button fx:id="startQuiz" layoutX="443.0" layoutY="132.0" mnemonicParsing="false" onMouseClicked="#startTheQuiz" text="START">
+         <font>
+            <Font name="Bauhaus 93" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="goBack" layoutX="444.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#goingBack" text="BACK">
+         <font>
+            <Font name="Bauhaus 93" size="18.0" />
+         </font>
+      </Button>
+      <Text fx:id="selectedQuizName" layoutX="167.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="selectedQuizName">
+         <font>
+            <Font name="Bauhaus 93" size="39.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
