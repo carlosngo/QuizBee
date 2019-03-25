@@ -18,6 +18,7 @@ public class Client {
     // User variables
     private String name;
     private int points;
+    private final Answer currentAnswer = new Answer();
     private boolean inGame;
     private HashMap<String, Quiz> map;
 
@@ -110,8 +111,9 @@ public class Client {
                 while (inGame) {
                     String messageFromServer = inFromServer.readLine();
                     System.out.println("Received the following broadcast: " + messageFromServer);
-                    if (messageFromServer.equals("STARTQUIZ")) {
+                    if (messageFromServer.startsWith("STARTQUIZ")) {
                         System.out.println("Starting quiz...");
+                        administerQuiz(messageFromServer.substring(10));
                     } else if (messageFromServer.startsWith("ENDQUIZ")) {
                         System.out.println("The quiz has finished. Here are the results:");
                         String[] info = messageFromServer.substring(8).split("\\|");
@@ -138,13 +140,37 @@ public class Client {
     }
 
     public void leaveQuiz(String quizName) {
-        outToServer.println("LEAVEQUIZ " + quizName + "|" + name);
         inGame = false;
+        outToServer.println("LEAVEQUIZ " + quizName + "|" + name);
     }
 
     public void startQuiz(String quizName) {
         outToServer.println("STARTQUIZ " + quizName);
-//        map.get(quizName).
+    }
+
+    public void administerQuiz(String quizName) {
+        Quiz quiz = map.get(quizName);
+        currentAnswer.index = -1;
+        executor.submit(() -> {
+            for (int i = 0; i < quiz.getQuestions().size(); i++) {
+
+                Question question = quiz.getQuestions().get(i);
+                System.out.println(question.getPrompt());
+                System.out.println("A. " + question.getChoices().get(0));
+                System.out.println("B. " + question.getChoices().get(1));
+                System.out.println("C. " + question.getChoices().get(2));
+                System.out.println("D. " + question.getChoices().get(3));
+                question.beginTimer();
+                while (true) {
+                    synchronized (currentAnswer) {
+                        if (currentAnswer.index != -1) break;
+                    }
+                }
+                if (question.isCorrect(currentAnswer.index)) addPoints(quizName, question.getPoints());
+                currentAnswer.index = -1;
+            }
+            finishQuiz(quizName);
+        });
     }
 
     public void finishQuiz(String quizName) {
@@ -154,6 +180,17 @@ public class Client {
     public void addPoints(String quizName, int increment) {
         setPoints(getPoints() + increment);
         outToServer.println("SCORE " + quizName + "|" + name + "|" + getPoints());
+    }
+
+    public void setChoice(int choice) {
+        synchronized (currentAnswer) {
+            currentAnswer.index = choice;
+        }
+        System.out.println("Current answer is now: " + choice);
+    }
+
+    private class Answer {
+        int index;
     }
 
     public static void main(String[] args) {
@@ -179,6 +216,18 @@ public class Client {
         JButton finishQuiz = new JButton("Finish Quiz");
         finishQuiz.addActionListener(e -> client.finishQuiz("My Quiz"));
         content.add(finishQuiz);
+        JButton choiceA = new JButton("A");
+        choiceA.addActionListener(e -> client.setChoice(0));
+        content.add(choiceA);
+        JButton choiceB = new JButton("B");
+        choiceB.addActionListener(e -> client.setChoice(1));
+        content.add(choiceB);
+        JButton choiceC = new JButton("C");
+        choiceC.addActionListener(e -> client.setChoice(2));
+        content.add(choiceC);
+        JButton choiceD = new JButton("D");
+        choiceD.addActionListener(e -> client.setChoice(3));
+        content.add(choiceD);
         frm.setContentPane(content);
         frm.setVisible(true);
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

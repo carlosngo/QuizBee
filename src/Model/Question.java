@@ -64,7 +64,8 @@ public class Question {
 
     public int getPoints() {
         long endTime = Calendar.getInstance().getTimeInMillis();
-        return 600 - (int)(endTime - startTime) / 1000 * 10;
+        int weight = 600 - (int)(endTime - startTime) / 1000 * 10;
+        return weight > 50 ? weight : 50;
     }
 
     public boolean isCorrect(int answer) {

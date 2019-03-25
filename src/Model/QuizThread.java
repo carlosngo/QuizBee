@@ -22,7 +22,7 @@ public class QuizThread extends Observable implements Runnable {
 
     @Override
     public void run() {
-        broadcast("STARTQUIZ");
+        broadcast("STARTQUIZ " + quiz.getName());
         hasStarted = true;
         while (true) {
             boolean isFinished = true;
@@ -56,6 +56,7 @@ public class QuizThread extends Observable implements Runnable {
     public void finishQuiz(String clientName) { clientStates.put(clientName, true); }
 
     public void addParticipant(ClientThread clientThread, String participantName) {
+        if (countObservers() == MAX_PARTICIPANTS) return;
         scores.put(participantName, 0);
         clientStates.put(participantName, false);
         broadcast("JOINQUIZ " + participantName);
