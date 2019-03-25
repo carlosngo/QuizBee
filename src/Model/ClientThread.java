@@ -66,9 +66,16 @@ public class ClientThread implements Runnable, Observer {
                     String[] data = messageFromClient.substring(9).split("\\|");
                     server.addParticipant(this, data[0].trim(), data[1].trim());
                 } else if (messageFromClient.startsWith("LEAVEQUIZ")) {
-                    server.removeParticipant(this, Integer.parseInt(messageFromClient.substring(9).trim()));
+                    String[] data = messageFromClient.substring(10).split("\\|");
+                    server.removeParticipant(this, data[0].trim(), data[1].trim());
                 } else if (messageFromClient.startsWith("STARTQUIZ")) {
                     server.startQuiz((messageFromClient.substring(9).trim()));
+                } else if (messageFromClient.startsWith("FINISHQUIZ")) {
+                    String[] data = messageFromClient.substring(11).split("\\|");
+                    server.finishQuiz(data[0], data[1]);
+                } else if (messageFromClient.startsWith("SCORE")) {
+                    String[] data = messageFromClient.substring(6).split("\\|");
+                    server.updateScore(data[0], data[1], Integer.parseInt(data[2]));
                 }
                 reply.append("END");
                 System.out.println("Sending the following message to the client: " + reply.toString());
@@ -86,10 +93,5 @@ public class ClientThread implements Runnable, Observer {
         String message = (String) arg;
         System.out.println("ClientThread: Received the broadcast " + message);
         out.println(message);
-        if (message.equals("STARTQUIZ")) {
-
-        } else if (message.equals("ENDQUIZ")) {
-
-        }
     }
 }

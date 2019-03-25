@@ -9,6 +9,9 @@ public class QuizThread extends Observable implements Runnable {
 
     private final int MAX_PARTICIPANTS = 4;
     private final Quiz quiz = new Quiz();
+    private HashMap<String, Integer> scores = new HashMap<>();
+    private HashMap<String, Boolean> clientStates = new HashMap<>();
+    private boolean hasStarted = false;
 
     public QuizThread(Quiz quiz) {
         this.quiz.setQuizID(quiz.getQuizID());
@@ -20,9 +23,55 @@ public class QuizThread extends Observable implements Runnable {
     @Override
     public void run() {
         broadcast("STARTQUIZ");
+        hasStarted = true;
+        while (true) {
+            boolean isFinished = true;
+            for (String name : clientStates.keySet()) if (!clientStates.get(name)) isFinished = false;
+            if (isFinished) break;
+        }
+        ArrayList<Standing> ranking = new ArrayList<>();
+        for (String participant : scores.keySet()) {
+            Standing s = new Standing();
+            s.name = participant;
+            s.score = scores.get(participant);
+            ranking.add(s);
+        }
+        Collections.sort(ranking);
+        StringBuilder sb = new StringBuilder();
+        sb.append("ENDQUIZ ");
+        int ctr = 0;
+        for (int i = 0; i < ranking.size(); i++) {
+            if (ctr > 0) sb.append("|");
+            sb.append(ranking.get(i).name);
+            sb.append("|");
+            sb.append(ranking.get(i).score);
+            ctr++;
+        }
+        broadcast(sb.toString());
+        // append results
+    }
 
+    public boolean hasStarted() { return hasStarted; }
 
-        broadcast("ENDQUIZ");
+    public void finishQuiz(String clientName) { clientStates.put(clientName, true); }
+
+    public void addParticipant(ClientThread clientThread, String participantName) {
+        scores.put(participantName, 0);
+        clientStates.put(participantName, false);
+        broadcast("JOINQUIZ " + participantName);
+        addObserver(clientThread);
+    }
+
+    public void removeParticipant(ClientThread clientThread, String participantName) {
+        scores.remove(participantName);
+        clientStates.remove(participantName);
+        deleteObserver(clientThread);
+        broadcast("LEAVEQUIZ " + participantName);
+    }
+
+    public void setScore(String participantName, int newScore) {
+        scores.put(participantName, newScore);
+        broadcast("SCORE " + participantName + "|" + newScore);
     }
 
     @Override
@@ -36,4 +85,15 @@ public class QuizThread extends Observable implements Runnable {
         notifyObservers(message);
     }
 
+    private static class Standing implements Comparable<Standing> {
+        String name;
+        int score;
+
+        @Override
+        public int compareTo(Standing o) {
+            int result = Integer.compare(o.score, score);
+            if (result == 0) return name.compareTo(o.name);
+            return result;
+        }
+    }
 }

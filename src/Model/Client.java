@@ -19,6 +19,7 @@ public class Client {
     private String name;
     private int points;
     private boolean inGame;
+    private HashMap<String, Quiz> map;
 
     public Client() {
         try {
@@ -28,6 +29,7 @@ public class Client {
             name = "";
             points = 0;
             inGame = false;
+            map = new HashMap<>();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,14 +49,6 @@ public class Client {
 
     public void setPoints(int points) {
         this.points = points;
-    }
-
-    public boolean isInGame() {
-        return inGame;
-    }
-
-    public void setInGame(boolean inGame) {
-        this.inGame = inGame;
     }
 
     public void closeConnection() {
@@ -82,7 +76,9 @@ public class Client {
                     sb.append("\n");
                 }
                 System.out.println(sb.toString());
-                quizzes.add(Quiz.parseQuiz(sb.toString()));
+                Quiz quiz = Quiz.parseQuiz(sb.toString());
+                map.put(quiz.getName(), quiz);
+                quizzes.add(quiz);
             }
             response = inFromServer.readLine();
             if (response.equals("END")) System.out.println("Information was passed successfully.");
@@ -116,8 +112,10 @@ public class Client {
                     System.out.println("Received the following broadcast: " + messageFromServer);
                     if (messageFromServer.equals("STARTQUIZ")) {
                         System.out.println("Starting quiz...");
-                    } else if (messageFromServer.equals("ENDQUIZ")) {
-                        System.out.println("Finishing quiz...");
+                    } else if (messageFromServer.startsWith("ENDQUIZ")) {
+                        System.out.println("The quiz has finished. Here are the results:");
+                        String[] info = messageFromServer.substring(8).split("\\|");
+                        for (int i = 0; i < info.length; i += 2) System.out.println(info[i] + ": " + info[i + 1]);
                         inGame = false;
                     } else if (messageFromServer.startsWith("JOINQUIZ")) {
                         String newParticipant = messageFromServer.substring(9).trim();
@@ -125,9 +123,9 @@ public class Client {
                     } else if (messageFromServer.startsWith("LEAVEQUIZ")) {
                         String coward = messageFromServer.substring(10).trim();
                         System.out.println(coward + " has left the game.");
-                    } else if (messageFromServer.equals("ENDQUIZ")) {
-                        System.out.println("Finishing quiz...");
-                        inGame = false;
+                    } else if (messageFromServer.startsWith("SCORE")) {
+                        String[] info = messageFromServer.substring(6).split("\\|");
+                        System.out.println("The score of contestant " + info[0] + " is now " + Integer.parseInt(info[1]));
                     } else {
                         System.out.println("Ignored the message: " + messageFromServer);
                     }
@@ -140,33 +138,47 @@ public class Client {
     }
 
     public void leaveQuiz(String quizName) {
+        outToServer.println("LEAVEQUIZ " + quizName + "|" + name);
         inGame = false;
     }
 
     public void startQuiz(String quizName) {
         outToServer.println("STARTQUIZ " + quizName);
+//        map.get(quizName).
+    }
+
+    public void finishQuiz(String quizName) {
+        outToServer.println("FINISHQUIZ " + quizName + "|" + name);
+    }
+
+    public void addPoints(String quizName, int increment) {
+        setPoints(getPoints() + increment);
+        outToServer.println("SCORE " + quizName + "|" + name + "|" + getPoints());
     }
 
     public static void main(String[] args) {
         Client client = new Client();
-        client.setName("Carlos");
+        client.setName(JOptionPane.showInputDialog("What is your name?"));
         JFrame frm = new JFrame("Test");
         JPanel content = new JPanel();
         JButton getQuiz = new JButton("Get Quizzes");
-        getQuiz.addActionListener(e -> {
-            client.getQuizzes();
-        });
+        getQuiz.addActionListener(e -> client.getQuizzes());
         content.add(getQuiz);
         JButton joinQuiz = new JButton("Join Quiz");
-        joinQuiz.addActionListener(e -> {
-          client.joinQuiz("My Quiz");
-        });
+        joinQuiz.addActionListener(e -> client.joinQuiz("My Quiz"));
         content.add(joinQuiz);
+        JButton leaveQuiz = new JButton("Leave Quiz");
+        leaveQuiz.addActionListener(e -> client.leaveQuiz("My Quiz"));
+        content.add(leaveQuiz);
         JButton startQuiz = new JButton("Start Quiz");
-        startQuiz.addActionListener(e -> {
-            client.startQuiz("My Quiz");
-        });
+        startQuiz.addActionListener(e -> client.startQuiz("My Quiz"));
         content.add(startQuiz);
+        JButton addPoints = new JButton("Add Points");
+        addPoints.addActionListener(e -> client.addPoints("My Quiz", 50));
+        content.add(addPoints);
+        JButton finishQuiz = new JButton("Finish Quiz");
+        finishQuiz.addActionListener(e -> client.finishQuiz("My Quiz"));
+        content.add(finishQuiz);
         frm.setContentPane(content);
         frm.setVisible(true);
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

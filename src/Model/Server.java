@@ -60,19 +60,24 @@ public class Server {
         }
     }
 
+    public void broadcastToParticipants(String quizName, Object message) {
+        QuizThread quizThread = quizThreads.get(quizName);
+        if (quizThread != null) quizThread.broadcast(message);
+    }
+
     public void addParticipant(ClientThread clientThread, String quizName, String participantName) {
         QuizThread quizThread = quizThreads.get(quizName);
         if (quizThread == null) {
             quizThread = new QuizThread(quizDAO.find(quizName));
             quizThreads.put(quizName, quizThread);
         }
-        quizThread.broadcast("JOINQUIZ " + participantName);
-        quizThread.addObserver(clientThread);
+        quizThread.addParticipant(clientThread, participantName);
     }
 
-    public void removeParticipant(ClientThread clientThread, int quizID) {
-        QuizThread quizThread = quizThreads.get(quizID);
-        if (quizThread != null) quizThread.deleteObserver(clientThread);
+    public void removeParticipant(ClientThread clientThread, String quizName, String participantName) {
+        QuizThread quizThread = quizThreads.get(quizName);
+        if (quizThread != null) quizThread.removeParticipant(clientThread, participantName);
+
     }
 
     public void createQuiz(Quiz q) {
@@ -87,9 +92,20 @@ public class Server {
         startThread(quizThreads.get(quizName));
     }
 
+    public void finishQuiz(String quizName, String participantName) {
+        QuizThread quizThread = quizThreads.get(quizName);
+        if (quizThread != null) quizThread.finishQuiz(participantName);
+    }
+
+    public void updateScore(String quizName, String participantName, int newScore) {
+        QuizThread quizThread = quizThreads.get(quizName);
+        if (quizThread != null) quizThread.setScore(participantName, newScore);
+    }
+
     public ArrayList<Quiz> getQuizzes() {
         return quizDAO.listById();
     }
+
 
     public Quiz getQuiz(int quizID) {
         return quizDAO.find(quizID);
