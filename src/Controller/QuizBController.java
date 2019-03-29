@@ -2,7 +2,7 @@
  * Sample Skeleton for 'GUIqB.fxml' Controller Class
  */
 
-package View;
+package Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,7 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 
-public class ControllerForQuizB {
+public class QuizBController {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;

@@ -2,11 +2,13 @@
  * Sample Skeleton for 'GUILobby.fxml' Controller Class
  */
 
-package View;
+package Controller;
 
 import java.awt.event.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -31,12 +33,7 @@ public class LobbyController {
 
     @FXML // fx:id="selectedQuizName"
     private Text selectedQuizName; // Value injected by FXMLLoader
-
-    @FXML
-    void f50505(ActionEvent event) {
-
-    }
-
+    
     @FXML
     void startTheQuiz(ActionEvent event) {
 
