@@ -2,20 +2,19 @@
  * Sample Skeleton for 'GUIwelcomePage.fxml' Controller Class
  */
 
-package View;
+package Controller;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Controller.ActivateRegistrationController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
-public class ControllerForWelcome {
+public class WelcomeController {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;

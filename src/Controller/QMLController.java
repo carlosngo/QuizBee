@@ -2,13 +2,12 @@
  * Sample Skeleton for 'GUIquizMasterLogin.fxml' Controller Class
  */
 
-package View;
+package Controller;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Controller.ActivateRegistrationController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class ControllerForQML {
+public class QMLController {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;

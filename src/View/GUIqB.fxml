@@ -8,11 +8,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="607.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ControllerForQuizB">
+<AnchorPane prefHeight="607.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.QuizBController">
    <children>
-      <ImageView fitHeight="607.0" fitWidth="1075.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0">
+      <ImageView fitHeight="607.0" fitWidth="235.0" layoutX="841.0" layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="840.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../resources/54255586_2237860296276799_560798904950456320_n.png" />
+            <Image url="@../../resources/images/54255936_268950643990540_5584889383946813440_n.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="607.0" fitWidth="840.0" layoutX="-3.0" layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../resources/images/54255586_2237860296276799_560798904950456320_n.png" />
          </image>
       </ImageView>
       <Button fx:id="pickA" layoutX="72.0" layoutY="382.0" mnemonicParsing="false" prefHeight="93.0" prefWidth="336.0" text="A" AnchorPane.leftAnchor="72.0" />

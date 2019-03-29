@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -10,8 +15,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="538.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddQuizController">
+<AnchorPane prefHeight="538.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddQuizController">
     <children>
+      <ImageView fitHeight="538.0" fitWidth="590.0" layoutX="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../resources/images/54255586_2237860296276799_560798904950456320_n.png" />
+         </image>
+      </ImageView>
         <TextField fx:id="quizNameTxtFld" alignment="TOP_LEFT" layoutX="193.0" layoutY="14.0" prefHeight="18.0" prefWidth="337.0" promptText="Quiz Name" />
         <Label layoutX="59.0" layoutY="18.0" prefHeight="18.0" prefWidth="134.0" text="Enter Quiz Name:">
          <font>
