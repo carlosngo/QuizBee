@@ -1,16 +1,18 @@
 package Controller;
 
+import Driver.QuizBeeApplication;
+import Model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import Model.TempQuiz;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class AddQuizController {
@@ -24,11 +26,13 @@ public class AddQuizController {
     @FXML Tab question1, question2, question3, question4, question5;
     @FXML ComboBox<String> answerCBox1, answerCBox2, answerCBox3, answerCBox4, answerCBox5;
     @FXML Button saveBtn, discardAllBtn;
-    TempQuiz quiz;
+
+    private final Client client = Client.getInstance();
+    private Quiz quiz;
 
     public void initialize () {
         // temporary quiz
-        quiz = new TempQuiz();
+        quiz = new Quiz();
 
         //initialized to question 1
         answerCBox1.getItems().addAll("A", "B", "C", "D");
@@ -73,7 +77,7 @@ public class AddQuizController {
         choiceDTxtFld4.clear();
         choiceDTxtFld5.clear();
 
-        quiz.setQuizName("");
+        quiz.setName("");
         quiz.setDescription("");
         quiz.setQuestion1("");
         quiz.setQuestion2("");
@@ -138,21 +142,23 @@ public class AddQuizController {
                 choiceDTxtFld4.getText()==null || choiceDTxtFld4.getText().trim().isEmpty() ||
                 choiceDTxtFld5.getText()==null || choiceDTxtFld5.getText().trim().isEmpty() ) {
 
-            Stage window = new Stage();
-
-            window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Error!");
-            window.setMinWidth(300);
-            window.setMinHeight(250);
-
-            Label label = new Label("One or more text fields are left blank.");
-
-            VBox layout = new VBox(20);
-            layout.getChildren().addAll(label);
-            layout.setAlignment(Pos.CENTER);
-
-            window.setScene(new Scene(layout));
-            window.showAndWait();
+            JOptionPane.showMessageDialog(null, "One or more text fields are left blank.",
+                    "Error!", JOptionPane.ERROR_MESSAGE);
+//            Stage window = new Stage();
+//
+//            window.initModality(Modality.APPLICATION_MODAL);
+//            window.setTitle("Error!");
+//            window.setMinWidth(300);
+//            window.setMinHeight(250);
+//
+//            Label label = new Label("One or more text fields are left blank.");
+//
+//            VBox layout = new VBox(20);
+//            layout.getChildren().addAll(label);
+//            layout.setAlignment(Pos.CENTER);
+//
+//            window.setScene(new Scene(layout));
+//            window.showAndWait();
         }
         else {
                 quiz.setQuizName(quizNameTxtFld.getText());
@@ -236,7 +242,7 @@ public class AddQuizController {
                 try {
                     discardAll();
                     Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
-                    ActivateRegistrationController.getStage().setScene(new Scene(root, 390, 350));
+                    QuizBeeApplication.getStage().setScene(new Scene(root, 390, 350));
                     window.close();
                 } catch (IOException exception) {
                     throw new RuntimeException();
@@ -252,7 +258,7 @@ public class AddQuizController {
         else {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
-                ActivateRegistrationController.getStage().setScene(new Scene(root, 390, 350));
+                QuizBeeApplication.getStage().setScene(new Scene(root, 390, 350));
                 discardAll();
             } catch (IOException exception) {
                 throw new RuntimeException();

@@ -4,6 +4,7 @@
 
 package View;
 
+import java.awt.event.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -33,11 +34,6 @@ public class LobbyController {
 
     @FXML
     void f50505(ActionEvent event) {
-
-    }
-
-    @FXML
-    void 448b96(ActionEvent event) {
 
     }
 

@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Controller.ActivateRegistrationController;
+import Driver.QuizBeeApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -60,13 +60,13 @@ public class ControllerForQML {
         // if user is valid, go to quiz master mode
 
         Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
-        ActivateRegistrationController.getStage().setScene(new Scene(root, 390, 350));
-        ActivateRegistrationController.getStage().setTitle("Quiz Master");
+        QuizBeeApplication.getStage().setScene(new Scene(root, 390, 350));
+        QuizBeeApplication.getStage().setTitle("Quiz Master");
     }
 
     public void back() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/View/GUIwelcomePage.fxml"));
-        ActivateRegistrationController.getStage().setScene(new Scene(root, 677, 454));
-        ActivateRegistrationController.getStage().setTitle("Welcome to Network Quiz Bee!");
+        QuizBeeApplication.getStage().setScene(new Scene(root, 677, 454));
+        QuizBeeApplication.getStage().setTitle("Welcome to Network Quiz Bee!");
     }
 }

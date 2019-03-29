@@ -1,5 +1,8 @@
 package Controller;
 
+import Driver.QuizBeeApplication;
+import Model.*;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -18,6 +21,8 @@ public class DeleteQuizController {
     @FXML Label usernameLbl;
     @FXML ComboBox<String> quizNameCBox;
     @FXML Button deleteBtn, cancelBtn;
+
+    private final Client client = Client.getInstance();
 
     public void initialize() {
         // Hi + username
@@ -86,7 +91,7 @@ public class DeleteQuizController {
 
     public void cancel () throws IOException, RuntimeException{
         Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
-        ActivateRegistrationController.getStage().setScene(new Scene(root, 390, 350));
+        QuizBeeApplication.getStage().setScene(new Scene(root, 390, 350));
     }
 
 }
