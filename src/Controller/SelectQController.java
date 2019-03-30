@@ -44,7 +44,7 @@ public class SelectQController {
     
     @FXML
     void readQuizName(MouseEvent e) {  //when the ListView is clicked
-    	
+    	joinQuizButton.setDisable(false);
     }
 
     @FXML
@@ -72,5 +72,6 @@ public class SelectQController {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         quizzes.setItems(FXCollections.observableArrayList(getQuizzes()));
+        joinQuizButton.setDisable(true);
     }
 }
