@@ -55,13 +55,6 @@ public class ClientThread implements Runnable, Observer {
                     }
                     Quiz quiz = Quiz.parseQuiz(sb.toString());
                     server.createQuiz(quiz);
-                } else if (messageFromClient.startsWith("GETQUESTIONS")) {
-                    int quizID = Integer.parseInt(messageFromClient.substring(12).trim());
-                    ArrayList<Question> questions = server.getQuestionsOfQuiz(quizID);
-                    for (int i = 0; i < questions.size(); i++) {
-                        reply.append(questions.get(i).toString());
-                        reply.append("\n");
-                    }
                 } else if (messageFromClient.startsWith("JOINQUIZ")) {
                     String[] data = messageFromClient.substring(9).split("\\|");
                     server.addParticipant(this, data[0].trim(), data[1].trim());

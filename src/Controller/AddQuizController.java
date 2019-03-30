@@ -4,13 +4,9 @@ import Driver.QuizBeeApplication;
 import Model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -29,11 +25,13 @@ public class AddQuizController {
 
     private final Client client = Client.getInstance();
     private Quiz quiz;
-
+    private Question question;
+//    TempQuiz quiz;
     public void initialize () {
         // temporary quiz
         quiz = new Quiz();
-
+        question = new Question();
+//        quiz = new TempQuiz();
         //initialized to question 1
         answerCBox1.getItems().addAll("A", "B", "C", "D");
         answerCBox1.getSelectionModel().selectFirst();
@@ -76,40 +74,6 @@ public class AddQuizController {
         choiceDTxtFld3.clear();
         choiceDTxtFld4.clear();
         choiceDTxtFld5.clear();
-
-        quiz.setName("");
-        quiz.setDescription("");
-        quiz.setQuestion1("");
-        quiz.setQuestion2("");
-        quiz.setQuestion3("");
-        quiz.setQuestion4("");
-        quiz.setQuestion5("");
-        quiz.setChoiceA1("");
-        quiz.setChoiceA2("");
-        quiz.setChoiceA3("");
-        quiz.setChoiceA4("");
-        quiz.setChoiceA5("");
-        quiz.setChoiceB1("");
-        quiz.setChoiceB2("");
-        quiz.setChoiceB3("");
-        quiz.setChoiceB4("");
-        quiz.setChoiceB5("");
-        quiz.setChoiceC1("");
-        quiz.setChoiceC2("");
-        quiz.setChoiceC3("");
-        quiz.setChoiceC4("");
-        quiz.setChoiceC5("");
-        quiz.setChoiceD1("");
-        quiz.setChoiceD2("");
-        quiz.setChoiceD3("");
-        quiz.setChoiceD4("");
-        quiz.setChoiceD5("");
-        quiz.setAnswer1("");
-        quiz.setAnswer2("");
-        quiz.setAnswer3("");
-        quiz.setAnswer4("");
-        quiz.setAnswer5("");
-
     }
 
     public void save() {
@@ -161,110 +125,77 @@ public class AddQuizController {
 //            window.showAndWait();
         }
         else {
-                quiz.setQuizName(quizNameTxtFld.getText());
-                quiz.setDescription(descriptionTxtFld.getText());
+            quiz.setName(quizNameTxtFld.getText());
+            quiz.setDescription(descriptionTxtFld.getText());
 
-                quiz.setQuestion1(questionNameTxtFld1.getText());
-                quiz.setChoiceA1(choiceATxtFld1.getText());
-                quiz.setChoiceB1(choiceBTxtFld1.getText());
-                quiz.setChoiceC1(choiceCTxtFld1.getText());
-                quiz.setChoiceD1(choiceDTxtFld1.getText());
-                quiz.setAnswer1(answerCBox1.getSelectionModel().getSelectedItem());
+            question = new Question();
+            question.setPrompt(questionNameTxtFld1.getText());
+            question.setChoice(0, choiceATxtFld1.getText());
+            question.setChoice(1, choiceBTxtFld1.getText());
+            question.setChoice(2, choiceCTxtFld1.getText());
+            question.setChoice(3, choiceDTxtFld1.getText());
+            question.setAnswer(answerCBox1.getSelectionModel().getSelectedIndex());
+            quiz.setQuestion(0, question);
 
-                quiz.setQuestion2(questionNameTxtFld2.getText());
-                quiz.setChoiceA2(choiceATxtFld2.getText());
-                quiz.setChoiceB2(choiceBTxtFld2.getText());
-                quiz.setChoiceC2(choiceCTxtFld2.getText());
-                quiz.setChoiceD2(choiceDTxtFld2.getText());
-                quiz.setAnswer2(answerCBox2.getSelectionModel().getSelectedItem());
+            question = new Question();
+            question.setPrompt(questionNameTxtFld2.getText());
+            question.setChoice(0, choiceATxtFld2.getText());
+            question.setChoice(1, choiceBTxtFld2.getText());
+            question.setChoice(2, choiceCTxtFld2.getText());
+            question.setChoice(3, choiceDTxtFld2.getText());
+            question.setAnswer(answerCBox2.getSelectionModel().getSelectedIndex());
+            quiz.setQuestion(1, question);
 
-                quiz.setQuestion3(questionNameTxtFld3.getText());
-                quiz.setChoiceA3(choiceATxtFld3.getText());
-                quiz.setChoiceB3(choiceBTxtFld3.getText());
-                quiz.setChoiceC3(choiceCTxtFld3.getText());
-                quiz.setChoiceD3(choiceDTxtFld3.getText());
-                quiz.setAnswer3(answerCBox3.getSelectionModel().getSelectedItem());
+            question = new Question();
+            question.setPrompt(questionNameTxtFld3.getText());
+            question.setChoice(0, choiceATxtFld3.getText());
+            question.setChoice(1, choiceBTxtFld3.getText());
+            question.setChoice(2, choiceCTxtFld3.getText());
+            question.setChoice(3, choiceDTxtFld3.getText());
+            question.setAnswer(answerCBox3.getSelectionModel().getSelectedIndex());
+            quiz.setQuestion(2, question);
 
-                quiz.setQuestion4(questionNameTxtFld4.getText());
-                quiz.setChoiceA4(choiceATxtFld4.getText());
-                quiz.setChoiceB4(choiceBTxtFld4.getText());
-                quiz.setChoiceC4(choiceCTxtFld4.getText());
-                quiz.setChoiceD4(choiceDTxtFld4.getText());
-                quiz.setAnswer4(answerCBox4.getSelectionModel().getSelectedItem());
+            question = new Question();
+            question.setPrompt(questionNameTxtFld4.getText());
+            question.setChoice(0, choiceATxtFld4.getText());
+            question.setChoice(1, choiceBTxtFld4.getText());
+            question.setChoice(2, choiceCTxtFld4.getText());
+            question.setChoice(3, choiceDTxtFld4.getText());
+            question.setAnswer(answerCBox4.getSelectionModel().getSelectedIndex());
+            quiz.setQuestion(3, question);
 
-                quiz.setQuestion5(questionNameTxtFld5.getText());
-                quiz.setChoiceA5(choiceATxtFld5.getText());
-                quiz.setChoiceB5(choiceBTxtFld5.getText());
-                quiz.setChoiceC5(choiceCTxtFld5.getText());
-                quiz.setChoiceD5(choiceDTxtFld5.getText());
-                quiz.setAnswer5(answerCBox5.getSelectionModel().getSelectedItem());
+            question = new Question();
+            question.setPrompt(questionNameTxtFld5.getText());
+            question.setChoice(0, choiceATxtFld5.getText());
+            question.setChoice(1, choiceBTxtFld5.getText());
+            question.setChoice(2, choiceCTxtFld5.getText());
+            question.setChoice(3, choiceDTxtFld5.getText());
+            question.setAnswer(answerCBox5.getSelectionModel().getSelectedIndex());
+            quiz.setQuestion(4, question);
 
-                Stage window = new Stage();
+            client.addQuiz(quiz);
 
-                window.initModality(Modality.APPLICATION_MODAL);
-                window.setTitle("Success!");
-                window.setMinWidth(250);
-                window.setMinHeight(250);
-
-                Label label = new Label("Saved successfully!");
-
-                VBox layout = new VBox(10);
-                layout.getChildren().addAll(label);
-                layout.setAlignment(Pos.CENTER);
-
-                window.setScene(new Scene(layout));
-                window.showAndWait();
+            JOptionPane.showMessageDialog(null, "Saved successfully!");
+            showAddDeleteFXML();
         }
     }
 
     public void back () {
-        System.out.println("Quiz Name TExtField: " + quizNameTxtFld.getText());
-        System.out.println("Quiz Name: " + quiz.getQuizName());
+        int choice = JOptionPane.showConfirmDialog(null,
+                "Unsaved data might be lost. Do you want to continue?",
+                "Confirm", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) showAddDeleteFXML();
 
-        // this means hindi nakapag save yung quiz master, kasi he wont be able to save din if any text field is left blank
-        if (quiz.getQuizName().length()==0 ) {
-            Stage window = new Stage();
+    }
 
-            window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Warning!");
-            window.setMinWidth(250);
-            window.setMinHeight(250);
-
-            Label label = new Label("Quiz incomplete. If you go back now, everything will be discarded. Are you sure you want to exit?");
-            Button confirm = new Button("Confirm");
-            Button cancel = new Button("Cancel");
-
-            VBox layout = new VBox(25);
-            layout.getChildren().addAll(label, confirm, cancel);
-            layout.setAlignment(Pos.CENTER);
-
-            confirm.setOnAction(e -> {
-                try {
-                    discardAll();
-                    Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
-                    QuizBeeApplication.getStage().setScene(new Scene(root, 390, 350));
-                    window.close();
-                } catch (IOException exception) {
-                    throw new RuntimeException();
-                }
-            });
-
-            cancel.setOnAction(e -> { window.close(); } );
-
-            window.setScene(new Scene(layout));
-            window.showAndWait();
+    public void showAddDeleteFXML() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
+            QuizBeeApplication.getStage().setScene(new Scene(root, 390, 350));
+            discardAll();
+        } catch (IOException exception) {
+            throw new RuntimeException();
         }
-
-        else {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
-                QuizBeeApplication.getStage().setScene(new Scene(root, 390, 350));
-                discardAll();
-            } catch (IOException exception) {
-                throw new RuntimeException();
-            }
-        }
-
     }
 
 }

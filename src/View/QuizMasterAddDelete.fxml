@@ -18,7 +18,7 @@
             <Image url="@../../resources/images/54255586_2237860296276799_560798904950456320_n.png" />
          </image>
       </ImageView>
-        <Label fx:id="welcomeUsernameLbl" alignment="CENTER" layoutY="14.0" prefHeight="62.0" prefWidth="398.0" text="Welcome, USERNAME">
+        <Label fx:id="welcomeUsernameLbl" alignment="CENTER" layoutY="14.0" prefHeight="62.0" prefWidth="398.0" text="Welcome, Administrator">
             <font>
                 <Font name="Book Antiqua" size="19.0" />
             </font>

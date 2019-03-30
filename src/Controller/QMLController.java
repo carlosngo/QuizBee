@@ -18,6 +18,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import javax.swing.*;
+
 public class QMLController {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
@@ -58,10 +60,14 @@ public class QMLController {
         // do something in DB
 
         // if user is valid, go to quiz master mode
-
-        Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
-        QuizBeeApplication.getStage().setScene(new Scene(root, 390, 350));
-        QuizBeeApplication.getStage().setTitle("Quiz Master");
+        if (username.equals("admin") && password.equals("password")) {
+            Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
+            QuizBeeApplication.getStage().setScene(new Scene(root, 390, 350));
+            QuizBeeApplication.getStage().setTitle("Quiz Master");
+        } else {
+            JOptionPane.showMessageDialog(null, "Username and Password do not match.",
+                    "Log in Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void back() throws IOException {
