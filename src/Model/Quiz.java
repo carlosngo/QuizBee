@@ -85,8 +85,8 @@ public class Quiz {
         sb.append(getDescription());
         sb.append("\n");
         for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
+            if (i > 0) sb.append("\n");
             sb.append(questions.get(i).toString());
-            sb.append("\n");
         }
 //        System.out.println(sb.toString());
         return sb.toString();

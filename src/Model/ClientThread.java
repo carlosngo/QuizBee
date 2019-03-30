@@ -40,8 +40,8 @@ public class ClientThread implements Runnable, Observer {
                     reply.append(quizzes.size());
                     reply.append("\n");
                     for (int i = 0; i < quizzes.size(); i++) {
-                        if (i > 0) reply.append("\n");
                         reply.append(quizzes.get(i).toString());
+                        reply.append("\n");
                     }
                 } else if (messageFromClient.startsWith("ADDQUIZ")) {
                     StringBuilder sb = new StringBuilder();

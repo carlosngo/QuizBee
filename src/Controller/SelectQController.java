@@ -6,10 +6,13 @@ package Controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import Driver.QuizBeeApplication;
+import Model.*;
+
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,17 +30,16 @@ public class SelectQController {
     @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
     @FXML // fx:id="Quizzes"
-    private ListView<String> Quizzes = new ListView<String>(); // Value injected by FXMLLoader
+    private ListView<String> quizzes = new ListView<String>(); // Value injected by FXMLLoader
     @FXML
     private Button refreshButton;
     @FXML
     private Button joinQuizButton;
+
+    private Client client = Client.getInstance();
     
-    
-    String quizSelected = Quizzes.getSelectionModel().getSelectedItem();
-    
-    public String getQuizSelected(String quizSelected) {
-    	return quizSelected;
+    public String getSelectedQuiz() {
+    	return quizzes.getSelectionModel().getSelectedItem();
     }
     
     
@@ -48,21 +50,28 @@ public class SelectQController {
 
     @FXML
     void refresh(MouseEvent e) {  //refresh button
-
+        quizzes.setItems(FXCollections.observableArrayList(getQuizzes()));
     }
     
     @FXML
     void joinQuiz(MouseEvent e) throws IOException, RuntimeException { //edit
-    	
+    	client.joinQuiz(getSelectedQuiz());
     	Parent root = FXMLLoader.load(getClass().getResource("/View/GUILobby.fxml"));
         QuizBeeApplication.getStage().setScene(new Scene(root, 553, 357));
         QuizBeeApplication.getStage().setTitle("Lobby");
     	
     }
     
-    
+    public ArrayList<String> getQuizzes() {
+        ArrayList<String> quizNames = new ArrayList<>();
+        for (Quiz quiz : client.getQuizzes()) {
+            quizNames.add(quiz.getName());
+        }
+        return quizNames;
+    }
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        
+        quizzes.setItems(FXCollections.observableArrayList(getQuizzes()));
     }
 }
