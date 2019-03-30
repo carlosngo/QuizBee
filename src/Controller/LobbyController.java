@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 public class LobbyController  {
@@ -76,7 +77,6 @@ public class LobbyController  {
         Platform.runLater(() -> {
             max4ListofParticipants.setItems(FXCollections.observableArrayList(list));
         });
-
 
     }
 
