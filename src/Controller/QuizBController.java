@@ -57,16 +57,6 @@ public class QuizBController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert score != null : "fx:id=\"score\" was not injected: check your FXML file 'GUIqB.fxml'.";
-        assert timer != null : "fx:id=\"timer\" was not injected: check your FXML file 'GUIqB.fxml'.";
-        assert correctOrWrong != null : "fx:id=\"correctOrWrong\" was not injected: check your FXML file 'GUIqB.fxml'.";
-        assert pickD != null : "fx:id=\"pickD\" was not injected: check your FXML file 'GUIqB.fxml'.";
-        assert pickC != null : "fx:id=\"pickC\" was not injected: check your FXML file 'GUIqB.fxml'.";
-        assert pickB != null : "fx:id=\"pickB\" was not injected: check your FXML file 'GUIqB.fxml'.";
-        assert pickA != null : "fx:id=\"pickA\" was not injected: check your FXML file 'GUIqB.fxml'.";
-        assert userName != null : "fx:id=\"userName\" was not injected: check your FXML file 'GUIqB.fxml'.";
-        assert rightAns != null : "fx:id=\"rightAns\" was not injected: check your FXML file 'GUIqB.fxml'.";
-        assert questionDisplay != null : "fx:id=\"questionDisplay\" was not injected: check your FXML file 'GUIqB.fxml'.";
-
+        
     }
 }

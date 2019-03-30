@@ -31,8 +31,7 @@ public class WelcomeController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert quizMasterBtn != null : "fx:id=\"qMaster\" was not injected: check your FXML file 'GUIwelcomePage.fxml'.";
-        assert participantBtn != null : "fx:id=\"Particpant\" was not injected: check your FXML file 'GUIwelcomePage.fxml'.";
+        
     }
 
     public void loginAsQuizMaster() throws IOException {

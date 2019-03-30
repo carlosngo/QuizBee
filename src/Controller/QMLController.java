@@ -45,12 +45,7 @@ public class QMLController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert backBtn != null : "fx:id=\"goBack\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
-        assert usernameTxtFld != null : "fx:id=\"User\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
-        assert loginBtn != null : "fx:id=\"logConfirm\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
-        assert passwordFld != null : "fx:id=\"pWord\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
-        assert userNameDisplay != null : "fx:id=\"userNameDisplay\" was not injected: check your FXML file 'GUIquizMasterLogin.fxml'.";
-
+        
     }
 
     public void login() throws IOException {

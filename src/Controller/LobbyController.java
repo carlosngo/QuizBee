@@ -46,10 +46,6 @@ public class LobbyController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert goBack != null : "fx:id=\"goBack\" was not injected: check your FXML file 'GUILobby.fxml'.";
-        assert max4ListofParticipants != null : "fx:id=\"max4ListofParticipants\" was not injected: check your FXML file 'GUILobby.fxml'.";
-        assert startQuiz != null : "fx:id=\"startQuiz\" was not injected: check your FXML file 'GUILobby.fxml'.";
-        assert selectedQuizName != null : "fx:id=\"selectedQuizName\" was not injected: check your FXML file 'GUILobby.fxml'.";
-
+        
     }
 }

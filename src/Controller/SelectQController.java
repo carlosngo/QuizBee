@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Driver.QuizBeeApplication;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,22 +54,15 @@ public class SelectQController {
     @FXML
     void joinQuiz(MouseEvent e) throws IOException { //edit
     	
-    	
-    	
-    	Stage stage = new Stage();
     	Parent root = FXMLLoader.load(getClass().getResource("/View/GUILobby.fxml"));
-    	
-    	Scene lobbyScene = new Scene(root, 553, 357);
-    	
-    	stage.setScene(lobbyScene);
-    	stage.show();
+        QuizBeeApplication.getStage().setScene(new Scene(root, 553, 357));
+        QuizBeeApplication.getStage().setTitle("Lobby");
     	
     }
     
     
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert Quizzes != null : "fx:id=\"Quizzes\" was not injected: check your FXML file 'GUIselectQuiz.fxml'.";
-
+        
     }
 }
