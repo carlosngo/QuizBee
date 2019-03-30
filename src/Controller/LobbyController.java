@@ -4,6 +4,7 @@
 
 package Controller;
 
+import java.awt.event.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,8 +33,7 @@ public class LobbyController {
 
     @FXML // fx:id="selectedQuizName"
     private Text selectedQuizName; // Value injected by FXMLLoader
-
-
+    
     @FXML
     void startTheQuiz(ActionEvent event) {
 

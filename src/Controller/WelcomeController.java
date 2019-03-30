@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Driver.QuizBeeApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -36,13 +37,13 @@ public class WelcomeController {
 
     public void loginAsQuizMaster() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/View/GUIquizMasterLogin.fxml"));
-        ActivateRegistrationController.getStage().setScene(new Scene(root, 491, 332));
-        ActivateRegistrationController.getStage().setTitle("Login as Quiz Master");
+        QuizBeeApplication.getStage().setScene(new Scene(root, 491, 332));
+        QuizBeeApplication.getStage().setTitle("Login as Quiz Master");
     }
 
     public void playAsParticipant() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/View/GUIselectQuiz.fxml"));
-        ActivateRegistrationController.getStage().setScene(new Scene(root, 592, 391));
-        ActivateRegistrationController.getStage().setTitle("Select a quiz");
+        QuizBeeApplication.getStage().setScene(new Scene(root, 592, 391));
+        QuizBeeApplication.getStage().setTitle("Select a quiz");
     }
 }

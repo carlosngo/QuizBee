@@ -9,6 +9,7 @@ import java.util.concurrent.*;
 
 
 public class Client {
+    private static final Client singleton = new Client();
     // Network variables to communicate with the server
     private Socket socket;
     private PrintWriter outToServer;
@@ -22,19 +23,9 @@ public class Client {
     private boolean inGame;
     private HashMap<String, Quiz> map;
 
-    public Client() {
-        try {
-            socket = new Socket(Server.IP_ADDRESS, Server.PORT_NUMBER);
-            outToServer = new PrintWriter(socket.getOutputStream(), true);
-            inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            name = "";
-            points = 0;
-            inGame = false;
-            map = new HashMap<>();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private Client() { }
+
+    public static Client getInstance() { return singleton; }
 
     public String getName() {
         return name;
@@ -52,7 +43,17 @@ public class Client {
         this.points = points;
     }
 
-    public void closeConnection() {
+    public void startConnection() throws IOException {
+        socket = new Socket(Server.IP_ADDRESS, Server.PORT_NUMBER);
+        outToServer = new PrintWriter(socket.getOutputStream(), true);
+        inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        name = "";
+        points = 0;
+        inGame = false;
+        map = new HashMap<>();
+    }
+
+    public void closeConnection() throws IOException {
         try {
             outToServer.close();
             inFromServer.close();
@@ -193,45 +194,45 @@ public class Client {
         int index;
     }
 
-    public static void main(String[] args) {
-        Client client = new Client();
-        client.setName(JOptionPane.showInputDialog("What is your name?"));
-        JFrame frm = new JFrame("Test");
-        JPanel content = new JPanel();
-        JButton getQuiz = new JButton("Get Quizzes");
-        getQuiz.addActionListener(e -> client.getQuizzes());
-        content.add(getQuiz);
-        JButton joinQuiz = new JButton("Join Quiz");
-        joinQuiz.addActionListener(e -> client.joinQuiz("My Quiz"));
-        content.add(joinQuiz);
-        JButton leaveQuiz = new JButton("Leave Quiz");
-        leaveQuiz.addActionListener(e -> client.leaveQuiz("My Quiz"));
-        content.add(leaveQuiz);
-        JButton startQuiz = new JButton("Start Quiz");
-        startQuiz.addActionListener(e -> client.startQuiz("My Quiz"));
-        content.add(startQuiz);
-        JButton addPoints = new JButton("Add Points");
-        addPoints.addActionListener(e -> client.addPoints("My Quiz", 50));
-        content.add(addPoints);
-        JButton finishQuiz = new JButton("Finish Quiz");
-        finishQuiz.addActionListener(e -> client.finishQuiz("My Quiz"));
-        content.add(finishQuiz);
-        JButton choiceA = new JButton("A");
-        choiceA.addActionListener(e -> client.setChoice(0));
-        content.add(choiceA);
-        JButton choiceB = new JButton("B");
-        choiceB.addActionListener(e -> client.setChoice(1));
-        content.add(choiceB);
-        JButton choiceC = new JButton("C");
-        choiceC.addActionListener(e -> client.setChoice(2));
-        content.add(choiceC);
-        JButton choiceD = new JButton("D");
-        choiceD.addActionListener(e -> client.setChoice(3));
-        content.add(choiceD);
-        frm.setContentPane(content);
-        frm.setVisible(true);
-        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frm.pack();
+//    public static void main(String[] args) {
+//        Client client = new Client();
+//        client.setName(JOptionPane.showInputDialog("What is your name?"));
+//        JFrame frm = new JFrame("Test");
+//        JPanel content = new JPanel();
+//        JButton getQuiz = new JButton("Get Quizzes");
+//        getQuiz.addActionListener(e -> client.getQuizzes());
+//        content.add(getQuiz);
+//        JButton joinQuiz = new JButton("Join Quiz");
+//        joinQuiz.addActionListener(e -> client.joinQuiz("My Quiz"));
+//        content.add(joinQuiz);
+//        JButton leaveQuiz = new JButton("Leave Quiz");
+//        leaveQuiz.addActionListener(e -> client.leaveQuiz("My Quiz"));
+//        content.add(leaveQuiz);
+//        JButton startQuiz = new JButton("Start Quiz");
+//        startQuiz.addActionListener(e -> client.startQuiz("My Quiz"));
+//        content.add(startQuiz);
+//        JButton addPoints = new JButton("Add Points");
+//        addPoints.addActionListener(e -> client.addPoints("My Quiz", 50));
+//        content.add(addPoints);
+//        JButton finishQuiz = new JButton("Finish Quiz");
+//        finishQuiz.addActionListener(e -> client.finishQuiz("My Quiz"));
+//        content.add(finishQuiz);
+//        JButton choiceA = new JButton("A");
+//        choiceA.addActionListener(e -> client.setChoice(0));
+//        content.add(choiceA);
+//        JButton choiceB = new JButton("B");
+//        choiceB.addActionListener(e -> client.setChoice(1));
+//        content.add(choiceB);
+//        JButton choiceC = new JButton("C");
+//        choiceC.addActionListener(e -> client.setChoice(2));
+//        content.add(choiceC);
+//        JButton choiceD = new JButton("D");
+//        choiceD.addActionListener(e -> client.setChoice(3));
+//        content.add(choiceD);
+//        frm.setContentPane(content);
+//        frm.setVisible(true);
+//        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frm.pack();
 
 //        client.startConnection();
 //
@@ -286,5 +287,5 @@ public class Client {
 //        ArrayList<Quiz> quizzes = client.getQuizzes();
 //        System.out.println("Number of quizzes = " + quizzes.size());
 //        client.closeConnection();
-    }
+//    }
 }
