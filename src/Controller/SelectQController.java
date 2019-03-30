@@ -52,7 +52,7 @@ public class SelectQController {
     }
     
     @FXML
-    void joinQuiz(MouseEvent e) throws IOException { //edit
+    void joinQuiz(MouseEvent e) throws IOException, RuntimeException { //edit
     	
     	Parent root = FXMLLoader.load(getClass().getResource("/View/GUILobby.fxml"));
         QuizBeeApplication.getStage().setScene(new Scene(root, 553, 357));
