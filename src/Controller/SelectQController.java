@@ -6,10 +6,13 @@ package Controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import Driver.QuizBeeApplication;
+import Model.*;
+
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,37 +35,43 @@ public class SelectQController {
     private Button refreshButton;
     @FXML
     private Button joinQuizButton;
+
+    private Client client = Client.getInstance();
     
-    
-    String quizSelected = quizzes.getSelectionModel().getSelectedItem();
-    
-    public String getQuizSelected(String quizSelected) {
-    	return quizSelected;
+    public String getSelectedQuiz() {
+    	return quizzes.getSelectionModel().getSelectedItem();
     }
-    
     
     @FXML
     void readQuizName(MouseEvent e) {  //when the ListView is clicked
-    	
+    	joinQuizButton.setDisable(false);
     }
 
     @FXML
     void refresh(MouseEvent e) {  //refresh button
-
+        quizzes.setItems(FXCollections.observableArrayList(getQuizzes()));
     }
     
     @FXML
     void joinQuiz(MouseEvent e) throws IOException, RuntimeException { //edit
-    	
+    	client.joinQuiz(getSelectedQuiz());
     	Parent root = FXMLLoader.load(getClass().getResource("/View/GUILobby.fxml"));
         QuizBeeApplication.getStage().setScene(new Scene(root, 553, 357));
         QuizBeeApplication.getStage().setTitle("Lobby");
     	
     }
     
-    
+    public ArrayList<String> getQuizzes() {
+        ArrayList<String> quizNames = new ArrayList<>();
+        for (Quiz quiz : client.getQuizzes()) {
+            quizNames.add(quiz.getName());
+        }
+        return quizNames;
+    }
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        
+        quizzes.setItems(FXCollections.observableArrayList(getQuizzes()));
+        joinQuizButton.setDisable(true);
     }
 }

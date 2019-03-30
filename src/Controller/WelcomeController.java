@@ -9,11 +9,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Driver.QuizBeeApplication;
+import Model.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+
+import javax.swing.*;
 
 public class WelcomeController {
 
@@ -29,6 +32,8 @@ public class WelcomeController {
     @FXML // fx:id="Particpant"
     private Button participantBtn; // Value injected by FXMLLoader
 
+    private Client client = Client.getInstance();
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         
@@ -41,6 +46,10 @@ public class WelcomeController {
     }
 
     public void playAsParticipant() throws IOException {
+        String name = "";
+        while (name.equals(""))
+            name = JOptionPane.showInputDialog(null, "Please input your name.");
+        client.setName(name);
         Parent root = FXMLLoader.load(getClass().getResource("/View/GUIselectQuiz.fxml"));
         QuizBeeApplication.getStage().setScene(new Scene(root, 592, 391));
         QuizBeeApplication.getStage().setTitle("Select a quiz");
