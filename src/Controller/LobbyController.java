@@ -50,7 +50,7 @@ public class LobbyController {
     @FXML
     void goingBack(ActionEvent event) throws IOException, RuntimeException {
 
-    	Parent root = FXMLLoader.load(getClass().getResource("/View/GUIselectQ.fxml"));
+    	Parent root = FXMLLoader.load(getClass().getResource("/View/GUIselectQuiz.fxml"));
         QuizBeeApplication.getStage().setScene(new Scene(root, 592, 391));
         QuizBeeApplication.getStage().setTitle("Select Quiz");
     }
