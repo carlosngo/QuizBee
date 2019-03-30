@@ -29,7 +29,7 @@ public class SelectQController {
     private ResourceBundle resources;
     @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
-    @FXML // fx:id="Quizzes"
+    @FXML // fx:id="quizzes"
     private ListView<String> quizzes = new ListView<String>(); // Value injected by FXMLLoader
     @FXML
     private Button refreshButton;
@@ -41,7 +41,6 @@ public class SelectQController {
     public String getSelectedQuiz() {
     	return quizzes.getSelectionModel().getSelectedItem();
     }
-    
     
     @FXML
     void readQuizName(MouseEvent e) {  //when the ListView is clicked
