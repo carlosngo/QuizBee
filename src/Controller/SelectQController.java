@@ -26,15 +26,15 @@ public class SelectQController {
     private ResourceBundle resources;
     @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
-    @FXML // fx:id="Quizzes"
-    private ListView<String> Quizzes = new ListView<String>(); // Value injected by FXMLLoader
+    @FXML // fx:id="quizzes"
+    private ListView<String> quizzes = new ListView<String>(); // Value injected by FXMLLoader
     @FXML
     private Button refreshButton;
     @FXML
     private Button joinQuizButton;
     
     
-    String quizSelected = Quizzes.getSelectionModel().getSelectedItem();
+    String quizSelected = quizzes.getSelectionModel().getSelectedItem();
     
     public String getQuizSelected(String quizSelected) {
     	return quizSelected;
