@@ -4,7 +4,6 @@
 
 package Controller;
 
-import java.awt.event.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 public class LobbyController {
@@ -40,7 +40,7 @@ public class LobbyController {
     private Text selectedQuizName; // Value injected by FXMLLoader
     
     @FXML
-    void startTheQuiz(ActionEvent event) throws IOException, RuntimeException {
+    void startTheQuiz(MouseEvent e) throws IOException, RuntimeException {
     	
     	Parent root = FXMLLoader.load(getClass().getResource("/View/GUIqB.fxml"));
         QuizBeeApplication.getStage().setScene(new Scene(root, 1075, 607));
@@ -48,7 +48,7 @@ public class LobbyController {
     }
 
     @FXML
-    void goingBack(ActionEvent event) throws IOException, RuntimeException {
+    void goingBack(MouseEvent e) throws IOException, RuntimeException {
 
     	Parent root = FXMLLoader.load(getClass().getResource("/View/GUIselectQuiz.fxml"));
         QuizBeeApplication.getStage().setScene(new Scene(root, 592, 391));
