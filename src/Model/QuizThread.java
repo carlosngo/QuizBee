@@ -9,8 +9,8 @@ public class QuizThread extends Observable implements Runnable {
 
     private final int MAX_PARTICIPANTS = 4;
     private final Quiz quiz = new Quiz();
-    private HashMap<String, Integer> scores = new HashMap<>();
-    private HashMap<String, Boolean> clientStates = new HashMap<>();
+    private TreeMap<String, Integer> scores = new TreeMap<>();
+    private TreeMap<String, Boolean> clientStates = new TreeMap<>();
     private boolean hasStarted = false;
 
     public QuizThread(Quiz quiz) {
@@ -54,6 +54,10 @@ public class QuizThread extends Observable implements Runnable {
     public boolean hasStarted() { return hasStarted; }
 
     public void finishQuiz(String clientName) { clientStates.put(clientName, true); }
+
+    public TreeMap<String, Integer> getParticipants() {
+        return scores;
+    }
 
     public void addParticipant(ClientThread clientThread, String participantName) {
         if (countObservers() == MAX_PARTICIPANTS) return;

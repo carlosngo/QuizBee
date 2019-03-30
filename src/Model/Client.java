@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.*;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -20,8 +22,12 @@ public class Client {
     private String name;
     private int points;
     private final Answer currentAnswer = new Answer();
+    private Quiz currentQuiz;
     private boolean inGame;
     private HashMap<String, Quiz> map;
+
+    // Controllers
+    private LobbyController lc;
 
     private Client() { }
 
@@ -41,6 +47,18 @@ public class Client {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public Quiz getCurrentQuiz() {
+        return currentQuiz;
+    }
+
+    public void setCurrentQuiz(Quiz quiz) {
+        currentQuiz = quiz;
+    }
+
+    public void setLobbyController(LobbyController lc) {
+        this.lc = lc;
     }
 
     public void startConnection() throws IOException {
@@ -90,6 +108,25 @@ public class Client {
         return quizzes;
     }
 
+    public TreeMap<String, Integer> getParticipants() {
+        TreeMap<String, Integer> participants = new TreeMap<>();
+        outToServer.println("GETPARTICIPANTS " + currentQuiz.getName());
+        try {
+            String reply = inFromServer.readLine();
+            if (!reply.equals("")) {
+                String[] data = reply.split("\\|");
+                for (int i = 0; i < data.length; i += 2) {
+                    participants.put(data[i], Integer.parseInt(data[i + 1]));
+                }
+            }
+            reply = inFromServer.readLine();
+            if (reply.equals("END")) System.out.println("Information was passed successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return participants;
+    }
+
     public void addQuiz(Quiz q) {
         StringBuilder sb = new StringBuilder();
         sb.append("ADDQUIZ ");
@@ -106,6 +143,9 @@ public class Client {
 
     public void joinQuiz(String quizName) {
         inGame = true;
+        currentQuiz = map.get(quizName);
+        currentQuiz.setParticipants(getParticipants());
+        currentQuiz.addParticipant(name);
         outToServer.println("JOINQUIZ " + quizName + "|" + name);
         executor.execute(() -> {
             try {
@@ -122,10 +162,16 @@ public class Client {
                         inGame = false;
                     } else if (messageFromServer.startsWith("JOINQUIZ")) {
                         String newParticipant = messageFromServer.substring(9).trim();
-                        System.out.println(newParticipant + " has joined the fray.");
+                        currentQuiz.addParticipant(newParticipant);
+                        System.out.println(newParticipant + " has joined the quiz. There are now " +
+                                currentQuiz.getParticipants().size() + " participants.");
+                        lc.update();
                     } else if (messageFromServer.startsWith("LEAVEQUIZ")) {
                         String coward = messageFromServer.substring(10).trim();
-                        System.out.println(coward + " has left the game.");
+                        currentQuiz.removeParticipant(coward);
+                        System.out.println(coward + " has left the quiz. There are now " +
+                                currentQuiz.getParticipants().size() + " participants.");
+                        lc.update();
                     } else if (messageFromServer.startsWith("SCORE")) {
                         String[] info = messageFromServer.substring(6).split("\\|");
                         System.out.println("The score of contestant " + info[0] + " is now " + Integer.parseInt(info[1]));
@@ -140,13 +186,14 @@ public class Client {
 
     }
 
-    public void leaveQuiz(String quizName) {
+    public void leaveQuiz() {
         inGame = false;
-        outToServer.println("LEAVEQUIZ " + quizName + "|" + name);
+        if (currentQuiz != null) outToServer.println("LEAVEQUIZ " + currentQuiz.getName() + "|" + name);
+        currentQuiz = null;
     }
 
-    public void startQuiz(String quizName) {
-        outToServer.println("STARTQUIZ " + quizName);
+    public void startQuiz() {
+        outToServer.println("STARTQUIZ " + currentQuiz.getName());
     }
 
     public void administerQuiz(String quizName) {

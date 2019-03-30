@@ -38,6 +38,7 @@ public class QuizBeeApplication extends Application {
                         @Override
                         public void run() {
                             try {
+//                                client.leaveQuiz();
                                 client.closeConnection();
                             } catch (IOException e) {
                                 e.printStackTrace();

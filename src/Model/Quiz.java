@@ -9,12 +9,16 @@ public class Quiz {
     private String description;
     private ArrayList<Question> questions;
 
+    // Client-side information
+    private TreeMap<String, Integer> participants;
+
     public Quiz() {
         quizID = -1;
         name = "";
         description = "";
         questions = new ArrayList<>();
         for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) questions.add(new Question());
+        participants = new TreeMap<>();
     }
 
     public int getQuizID() {
@@ -57,6 +61,26 @@ public class Quiz {
         if (name.equals("") || description.equals("")) return false;
         for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) if (!questions.get(i).isValid()) return false;
         return true;
+    }
+
+    public TreeMap<String, Integer> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(TreeMap<String, Integer> participants) {
+        this.participants = participants;
+    }
+
+    public void addParticipant(String newParticipant) {
+        participants.put(newParticipant, 0);
+    }
+
+    public void removeParticipant(String participantName) {
+        participants.remove(participantName);
+    }
+
+    public void setScore(String participantName, int newScore) {
+        participants.put(participantName, newScore);
     }
 
     // Reverse the toString() function. Given a String representation of a Quiz, build the Quiz object.

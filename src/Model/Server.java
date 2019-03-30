@@ -17,7 +17,7 @@ public class Server {
     private final Observable observable = new Observable();
     private final Lock lock = new ReentrantLock(true);
     private final QuizDAO quizDAO = new QuizDAO();
-    private final HashMap<String, QuizThread> quizThreads = new HashMap<>();
+    private final TreeMap<String, QuizThread> quizThreads = new TreeMap<>();
     private final QuestionDAO questionDAO = new QuestionDAO();
     private boolean shutdown = false;
 
@@ -115,8 +115,23 @@ public class Server {
         return questionDAO.listByQuiz(quizID);
     }
 
+    public TreeMap<String, Integer> getParticipants(String quizName) {
+        QuizThread quizThread = quizThreads.get(quizName);
+        if (quizThread != null) return quizThread.getParticipants();
+        return null;
+    }
+
+    public void loadQuizzes() {
+        ArrayList<Quiz> quizzes = getQuizzes();
+        for (int i = 0; i < quizzes.size(); i++) {
+            quizThreads.put(quizzes.get(i).getName(), new QuizThread(quizzes.get(i)));
+        }
+        System.out.println("Loaded " + quizThreads.size() + " quizzes successfully.");
+    }
+
     public static void main(String[] args) {
         Server server = Server.getInstance();
+        server.loadQuizzes();
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(PORT_NUMBER);

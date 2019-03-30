@@ -24,6 +24,22 @@ public class ClientThread implements Runnable, Observer {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     @Override
     public void run() {
         System.out.println("Started thread for client.");
@@ -69,6 +85,17 @@ public class ClientThread implements Runnable, Observer {
                 } else if (messageFromClient.startsWith("SCORE")) {
                     String[] data = messageFromClient.substring(6).split("\\|");
                     server.updateScore(data[0], data[1], Integer.parseInt(data[2]));
+                } else if (messageFromClient.startsWith("GETPARTICIPANTS")) {
+                    TreeMap<String, Integer> participants = server.getParticipants(messageFromClient.substring(16));
+                    int ctr = 0;
+                    for (String participant : participants.keySet()) {
+                        if (ctr > 0) reply.append("|");
+                        reply.append(participant);
+                        reply.append("|");
+                        reply.append(participants.get(participant));
+                        ctr++;
+                    }
+                    reply.append("\n");
                 }
                 reply.append("END");
                 System.out.println("Sending the following message to the client: " + reply.toString());
