@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="456.0" prefWidth="684.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ResultScreenController">
+   <children>
+      <ImageView fitHeight="456.0" fitWidth="684.0">
+         <image>
+            <Image url="@../../resources/images/54524372_338655163420900_3842519450876116992_n.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="223.0" layoutY="14.0" text="QUIZ RESULTS" textAlignment="CENTER" textFill="#d2e80c">
+         <font>
+            <Font name="Bauhaus 93" size="41.0" />
+         </font>
+      </Label>
+      <HBox layoutX="109.0" layoutY="121.0" prefHeight="188.0" prefWidth="493.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+         <children>
+            <ListView fx:id="topPlayers" prefHeight="188.0" prefWidth="419.0" />
+            <ListView fx:id="topScores" prefHeight="188.0" prefWidth="233.0" />
+         </children>
+      </HBox>
+      <Label layoutX="428.0" layoutY="79.0" text="Scores:" textFill="WHITE">
+         <font>
+            <Font name="Bauhaus 93" size="33.0" />
+         </font>
+      </Label>
+      <Label layoutX="16.0" layoutY="79.0" text="Top Players:" textFill="WHITE">
+         <font>
+            <Font name="Bauhaus 93" size="33.0" />
+         </font>
+      </Label>
+      <Button fx:id="exitGame" layoutX="500.0" layoutY="384.0" mnemonicParsing="false" onMouseClicked="#leaveGameExit" prefHeight="39.0" prefWidth="166.0" text="Exit">
+         <font>
+            <Font name="Bauhaus 93" size="21.0" />
+         </font>
+      </Button>
+      <Button fx:id="tryAgain" layoutX="321.0" layoutY="384.0" mnemonicParsing="false" onMouseClicked="#tryAgainAndReset" prefHeight="39.0" prefWidth="166.0" text="Try Again?">
+         <font>
+            <Font name="Bauhaus 93" size="21.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -45,9 +45,9 @@
          </font>
       </Label>
       <ListView fx:id="listOfParticipants" layoutX="861.0" layoutY="67.0" prefHeight="513.0" prefWidth="200.0" />
-      <Label layoutX="861.0" layoutY="36.0" text="List of Participants">
+      <Label layoutX="856.0" layoutY="14.0" prefHeight="53.0" prefWidth="210.0" text="List of Participants">
          <font>
-            <Font name="Bauhaus 93" size="24.0" />
+            <Font name="Bauhaus 93" size="25.0" />
          </font>
       </Label>
    </children>

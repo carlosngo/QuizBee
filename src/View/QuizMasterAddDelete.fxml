@@ -20,12 +20,21 @@
       </ImageView>
         <Label fx:id="welcomeUsernameLbl" alignment="CENTER" layoutY="14.0" prefHeight="62.0" prefWidth="398.0" text="Welcome, Administrator">
             <font>
-                <Font name="Book Antiqua" size="19.0" />
+                <Font name="Book Antiqua" size="29.0" />
             </font>
         </Label>
         <Separator layoutX="14.0" layoutY="84.0" prefHeight="4.0" prefWidth="367.0" />
-        <Button fx:id="addQuizBtn" layoutX="128.0" layoutY="133.0" mnemonicParsing="false" onMouseClicked="#addQuiz" prefHeight="47.0" prefWidth="142.0" text="Add Quiz" />
-        <Button fx:id="deleteQuizBtn" layoutX="128.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#deleteQuiz" prefHeight="47.0" prefWidth="142.0" text="Delete Quiz" />
-        <Label fx:id="logoutLbl" alignment="CENTER" layoutX="175.0" layoutY="285.0" onMouseClicked="#logout" prefHeight="17.0" prefWidth="48.0" text="Logout" textAlignment="CENTER" textFill="#6164f2" />
+        <Button fx:id="addQuizBtn" layoutX="110.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#addQuiz" prefHeight="62.0" prefWidth="175.0" text="Add Quiz">
+         <font>
+            <Font size="22.0" />
+         </font></Button>
+        <Button fx:id="deleteQuizBtn" layoutX="112.0" layoutY="207.0" mnemonicParsing="false" onMouseClicked="#deleteQuiz" prefHeight="55.0" prefWidth="175.0" text="Delete Quiz">
+         <font>
+            <Font size="21.0" />
+         </font></Button>
+        <Label fx:id="logoutLbl" alignment="CENTER" layoutX="106.0" layoutY="283.0" onMouseClicked="#logout" prefHeight="47.0" prefWidth="183.0" text="Logout" textAlignment="CENTER" textFill="#6164f2">
+         <font>
+            <Font size="32.0" />
+         </font></Label>
     </children>
 </AnchorPane>

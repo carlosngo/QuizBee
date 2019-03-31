@@ -25,14 +25,14 @@
          </font>
       </Text>
       <ListView fx:id="max4ListofParticipants" layoutX="39.0" layoutY="132.0" prefHeight="200.0" prefWidth="379.0" />
-      <Button fx:id="startQuiz" layoutX="443.0" layoutY="132.0" mnemonicParsing="false" onAction="#startTheQuiz" text="START">
+      <Button fx:id="startQuiz" layoutX="443.0" layoutY="132.0" mnemonicParsing="false" onMouseClicked="#startTheQuiz" prefHeight="53.0" prefWidth="92.0" text="START">
          <font>
-            <Font name="Bauhaus 93" size="18.0" />
+            <Font name="Bauhaus 93" size="22.0" />
          </font>
       </Button>
-      <Button fx:id="goBack" layoutX="444.0" layoutY="200.0" mnemonicParsing="false" onAction="#goingBack" text="BACK">
+      <Button fx:id="goBack" layoutX="444.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#goingBack" prefHeight="53.0" prefWidth="92.0" text="BACK">
          <font>
-            <Font name="Bauhaus 93" size="18.0" />
+            <Font name="Bauhaus 93" size="23.0" />
          </font>
       </Button>
       <Text fx:id="selectedQuizName" layoutX="167.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="selectedQuizName">

@@ -16,15 +16,15 @@
       </ImageView>
       <Button fx:id="refreshButton" layoutX="60.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#refresh" prefHeight="39.0" prefWidth="131.0" text="Refresh" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="400.0">
          <font>
-            <Font name="Bauhaus 93" size="18.0" />
+            <Font name="Bauhaus 93" size="22.0" />
          </font>
       </Button>
       <Button fx:id="joinQuizButton" layoutX="430.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#joinQuiz" prefHeight="39.0" prefWidth="323.0" text="Join Quiz" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="60.0">
          <font>
-            <Font name="Bauhaus 93" size="18.0" />
+            <Font name="Bauhaus 93" size="22.0" />
          </font>
       </Button>
-      <ListView fx:id="quizzes" layoutX="60.0" layoutY="62.0" onMouseClicked="#readQuizName" prefHeight="221.0" prefWidth="470.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="62.0" />
+      <ListView fx:id="Quizzes" layoutX="60.0" layoutY="62.0" onMouseClicked="#readQuizName" prefHeight="221.0" prefWidth="470.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="62.0" />
       <Label layoutX="183.0" layoutY="10.0" text="Select Quiz">
          <font>
             <Font name="Bauhaus 93" size="45.0" />

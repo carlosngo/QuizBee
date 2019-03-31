@@ -23,27 +23,27 @@
          </image>
       </ImageView>
         <TextField fx:id="quizNameTxtFld" alignment="TOP_LEFT" layoutX="193.0" layoutY="14.0" prefHeight="18.0" prefWidth="337.0" promptText="Quiz Name" />
-        <Label layoutX="59.0" layoutY="18.0" prefHeight="18.0" prefWidth="134.0" text="Enter Quiz Name:">
+        <Label layoutX="16.0" layoutY="21.0" prefHeight="26.0" prefWidth="163.0" text="Enter Quiz Name:">
          <font>
-            <Font name="Book Antiqua" size="12.0" />
+            <Font name="Book Antiqua" size="20.0" />
          </font></Label>
         <Label layoutX="59.0" layoutY="56.0" prefHeight="18.0" prefWidth="110.0" text="Description:">
          <font>
-            <Font name="Book Antiqua" size="12.0" />
+            <Font name="Book Antiqua" size="20.0" />
          </font></Label>
         <TextField fx:id="descriptionTxtFld" alignment="TOP_LEFT" layoutX="192.0" layoutY="56.0" prefHeight="66.0" prefWidth="338.0" promptText="Description" />
         <Separator layoutX="30.0" layoutY="141.0" prefHeight="0.0" prefWidth="530.0" />
-        <Button fx:id="saveBtn" layoutX="168.0" layoutY="480.0" mnemonicParsing="false" onAction="#save" prefHeight="44.0" prefWidth="98.0" text="Save">
+        <Button fx:id="saveBtn" layoutX="130.0" layoutY="480.0" mnemonicParsing="false" onAction="#save" prefHeight="44.0" prefWidth="136.0" text="Save">
          <font>
-            <Font name="Book Antiqua" size="12.0" />
+            <Font name="Book Antiqua" size="21.0" />
          </font></Button>
-        <Button fx:id="discardAllBtn" layoutX="323.0" layoutY="480.0" mnemonicParsing="false" onAction="#discardAll" prefHeight="44.0" prefWidth="98.0" text="Discard All">
+        <Button fx:id="discardAllBtn" layoutX="323.0" layoutY="480.0" mnemonicParsing="false" onAction="#discardAll" prefHeight="44.0" prefWidth="136.0" text="Discard All">
          <font>
-            <Font name="Book Antiqua" size="12.0" />
+            <Font name="Book Antiqua" size="21.0" />
          </font></Button>
-      <Button fx:id="backBtn" layoutX="29.0" layoutY="497.0" mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="54.0" text="Back">
+      <Button fx:id="backBtn" layoutX="29.0" layoutY="479.0" mnemonicParsing="false" onAction="#back" prefHeight="44.0" prefWidth="82.0" text="Back">
          <font>
-            <Font name="Book Antiqua" size="12.0" />
+            <Font name="Book Antiqua" size="21.0" />
          </font>
       </Button>
       <TabPane layoutX="14.0" layoutY="141.0" prefHeight="323.0" prefWidth="570.0" tabClosingPolicy="UNAVAILABLE">
@@ -57,9 +57,9 @@
                          <TextField fx:id="choiceBTxtFld1" alignment="TOP_LEFT" layoutX="309.0" layoutY="74.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice B" />
                          <TextField fx:id="choiceCTxtFld1" alignment="TOP_LEFT" layoutX="46.0" layoutY="163.0" prefHeight="74.0" prefWidth="216.0" promptText="Choice C" />
                          <TextField fx:id="choiceDTxtFld1" alignment="TOP_LEFT" layoutX="309.0" layoutY="163.0" prefHeight="73.0" prefWidth="216.0" promptText="Choice D" />
-                         <Label layoutX="354.0" layoutY="256.0" prefHeight="18.0" prefWidth="61.0" text="Answer:">
+                         <Label layoutX="332.0" layoutY="256.0" prefHeight="27.0" prefWidth="83.0" text="Answer:">
                            <font>
-                              <Font name="Book Antiqua" size="12.0" />
+                              <Font name="Book Antiqua" size="21.0" />
                            </font>
                         </Label>
                          <ComboBox fx:id="answerCBox1" layoutX="426.0" layoutY="252.0" prefHeight="26.0" prefWidth="98.0" />
