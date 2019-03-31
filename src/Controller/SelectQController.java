@@ -44,7 +44,7 @@ public class SelectQController {
     
     @FXML
     void readQuizName(MouseEvent e) {  //when the ListView is clicked
-    	joinQuizButton.setDisable(false);
+    	if (quizzes.getSelectionModel().getSelectedItem() != null) joinQuizButton.setDisable(false);
     }
 
     @FXML

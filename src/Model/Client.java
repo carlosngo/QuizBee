@@ -164,8 +164,12 @@ public class Client {
                         lc.switchNextScene();
                     } else if (messageFromServer.startsWith("ENDQUIZ")) {
                         System.out.println("The quiz has finished. Here are the results:");
+                        qbc.switchNextScene();
                         String[] info = messageFromServer.substring(8).split("\\|");
-                        for (int i = 0; i < info.length; i += 2) System.out.println(info[i] + ": " + info[i + 1]);
+                        for (int i = 0; i < info.length; i += 2) {
+                            currentQuiz.getTopPlayers().add(info[i]);
+                            currentQuiz.getTopScores().add(info[i]);
+                        }
                         inGame = false;
                     } else if (messageFromServer.startsWith("JOINQUIZ")) {
                         String newParticipant = messageFromServer.substring(9).trim();
@@ -238,6 +242,8 @@ public class Client {
     }
 
     public void finishQuiz() {
+        JOptionPane.showMessageDialog(null,
+                "You have finished the quiz. Please standby until all participants finish the quiz...");
         outToServer.println("FINISHQUIZ " + currentQuiz.getName() + "|" + name);
     }
 

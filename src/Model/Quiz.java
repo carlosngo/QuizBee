@@ -11,6 +11,8 @@ public class Quiz {
 
     // Client-side information
     private TreeMap<String, Integer> participants;
+    private ArrayList<String> topPlayers;
+    private ArrayList<String> topScores;
 
     public Quiz() {
         quizID = -1;
@@ -19,6 +21,8 @@ public class Quiz {
         questions = new ArrayList<>();
         for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) questions.add(new Question());
         participants = new TreeMap<>();
+        topPlayers = new ArrayList<>();
+        topScores = new ArrayList<>();
     }
 
     public int getQuizID() {
@@ -55,6 +59,14 @@ public class Quiz {
 
     public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
+    }
+
+    public ArrayList<String> getTopPlayers() {
+        return topPlayers;
+    }
+
+    public ArrayList<String> getTopScores() {
+        return topScores;
     }
 
     public boolean isValid() {

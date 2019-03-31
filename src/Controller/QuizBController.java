@@ -7,13 +7,16 @@ package Controller;
 import Driver.QuizBeeApplication;
 import Model.*;
 
-import java.lang.management.PlatformLoggingMXBean;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -66,28 +69,40 @@ public class QuizBController {
     @FXML
     public void clickA() {
         client.setChoice(0);
-        showAnswerAndWait();
+        showAnswer();
     }
 
     @FXML
     public void clickB() {
         client.setChoice(1);
-        showAnswerAndWait();
+        showAnswer();
     }
 
     @FXML
     public void clickC() {
         client.setChoice(2);
-        showAnswerAndWait();
+        showAnswer();
     }
 
     @FXML
     public void clickD() {
         client.setChoice(3);
-        showAnswerAndWait();
+        showAnswer();
     }
 
-    public void showAnswerAndWait() {
+    public void switchNextScene() {
+        Platform.runLater(() -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/View/GUIResultScreen.fxml"));
+                QuizBeeApplication.getStage().setScene(new Scene(root, 1075, 607));
+                QuizBeeApplication.getStage().setTitle("Quiz Results");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void showAnswer() {
         rightAns.setVisible(true);
         pickA.setDisable(true);
         pickB.setDisable(true);
