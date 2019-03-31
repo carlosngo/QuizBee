@@ -35,7 +35,7 @@ public class ResultScreenController {
         client.leaveQuiz();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/View/GUIselectQuiz.fxml"));
-            QuizBeeApplication.getStage().setScene(new Scene(root, 1075, 607));
+            QuizBeeApplication.getStage().setScene(new Scene(root, 592, 391));
             QuizBeeApplication.getStage().setTitle("Lobby");
         } catch (IOException e) {
             e.printStackTrace();

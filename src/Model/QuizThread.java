@@ -48,19 +48,24 @@ public class QuizThread extends Observable implements Runnable {
             ctr++;
         }
         broadcast(sb.toString());
+        hasStarted = false;
+        deleteObservers();
         // append results
     }
 
     public boolean hasStarted() { return hasStarted; }
 
-    public void finishQuiz(String clientName) { clientStates.put(clientName, true); }
+    public boolean isFull() { return MAX_PARTICIPANTS == countObservers(); }
+
+    public void finishQuiz(String clientName) {
+        clientStates.put(clientName, true);
+    }
 
     public TreeMap<String, Integer> getParticipants() {
         return scores;
     }
 
     public void addParticipant(ClientThread clientThread, String participantName) {
-        if (countObservers() == MAX_PARTICIPANTS) return;
         scores.put(participantName, 0);
         clientStates.put(participantName, false);
         broadcast("JOINQUIZ " + participantName);

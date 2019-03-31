@@ -147,12 +147,24 @@ public class Client {
         }
     }
 
-    public void joinQuiz(String quizName) {
-        inGame = true;
+    public boolean joinQuiz(String quizName) {
         currentQuiz = map.get(quizName);
         currentQuiz.setParticipants(getParticipants());
-        currentQuiz.addParticipant(name);
         outToServer.println("JOINQUIZ " + quizName + "|" + name);
+        String reply;
+        try {
+            reply = inFromServer.readLine();
+            if (reply.equals("NO")) {
+                reply = inFromServer.readLine();
+                JOptionPane.showMessageDialog(null, "The selected quiz is ongoing or full.");
+                if (reply.equals("END")) System.out.println("Information was passed successfully.");
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        inGame = true;
+        currentQuiz.addParticipant(name);
         executor.execute(() -> {
             try {
                 while (inGame) {
@@ -167,9 +179,11 @@ public class Client {
                         qbc.switchNextScene();
                         String[] info = messageFromServer.substring(8).split("\\|");
                         for (int i = 0; i < info.length; i += 2) {
-                            currentQuiz.getTopPlayers().add(info[i]);
-                            currentQuiz.getTopScores().add(info[i]);
+                            currentQuiz.getTopPlayers().add("#" + (i / 2 + 1) + " " + info[i]);
+                            currentQuiz.getTopScores().add(info[i + 1]);
                         }
+                        messageFromServer = inFromServer.readLine();
+                        if (messageFromServer.equals("END")) System.out.println("Quiz has successfully terminated.");
                         inGame = false;
                     } else if (messageFromServer.startsWith("JOINQUIZ")) {
                         String newParticipant = messageFromServer.substring(9).trim();
@@ -196,12 +210,21 @@ public class Client {
                 e.printStackTrace();
             }
         });
-
+        try {
+            reply = inFromServer.readLine();
+            if (reply.equals("END")) System.out.println("Information was passed successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     public void leaveQuiz() {
         inGame = false;
-        if (currentQuiz != null) outToServer.println("LEAVEQUIZ " + currentQuiz.getName() + "|" + name);
+        if (currentQuiz != null) {
+            outToServer.println("LEAVEQUIZ " + currentQuiz.getName() + "|" + name);
+            currentQuiz.removeParticipant(name);
+        }
         currentQuiz = null;
     }
 
@@ -211,13 +234,10 @@ public class Client {
 
     public void administerQuiz() {
         currentAnswer.index = -1;
-//        while (true) {
-//            synchronized(qbc) {
-//                if (qbc != null) break;
-//            }
-//        }
+        setPoints(0);
         qbc.update(currentQuiz.getParticipants());
         executor.submit(() -> {
+            currentQuiz.setStartTime(System.currentTimeMillis());
             for (int i = 0; i < currentQuiz.getQuestions().size(); i++) {
 
                 Question question = currentQuiz.getQuestions().get(i);
@@ -227,6 +247,9 @@ public class Client {
                 while (true) {
                     synchronized (currentAnswer) {
                         if (currentAnswer.index != -1) break;
+                    }
+                    if (System.currentTimeMillis() - currentQuiz.getStartTime() == 300000) { // if 5 minutes has passed, gg
+                        finishQuiz();
                     }
                 }
                 if (question.isCorrect(currentAnswer.index)) addPoints(currentQuiz.getName(), question.getPoints());
@@ -242,6 +265,7 @@ public class Client {
     }
 
     public void finishQuiz() {
+        qbc.disableControls();
         JOptionPane.showMessageDialog(null,
                 "You have finished the quiz. Please standby until all participants finish the quiz...");
         outToServer.println("FINISHQUIZ " + currentQuiz.getName() + "|" + name);

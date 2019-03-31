@@ -115,6 +115,16 @@ public class QuizBController {
 //        }
     }
 
+    public void disableControls() {
+        Platform.runLater(() -> {
+            pickA.setDisable(true);
+            pickB.setDisable(true);
+            pickC.setDisable(true);
+            pickD.setDisable(true);
+        });
+
+    }
+
     public void update(Question question) {
         Platform.runLater(() -> {
             System.out.println("Updating question...");

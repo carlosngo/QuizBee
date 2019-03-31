@@ -65,13 +65,15 @@ public class Server {
         if (quizThread != null) quizThread.broadcast(message);
     }
 
-    public void addParticipant(ClientThread clientThread, String quizName, String participantName) {
+    public boolean addParticipant(ClientThread clientThread, String quizName, String participantName) {
         QuizThread quizThread = quizThreads.get(quizName);
+        if (quizThread.hasStarted() || quizThread.isFull()) return false;
         if (quizThread == null) {
             quizThread = new QuizThread(quizDAO.find(quizName));
             quizThreads.put(quizName, quizThread);
         }
         quizThread.addParticipant(clientThread, participantName);
+        return true;
     }
 
     public void removeParticipant(ClientThread clientThread, String quizName, String participantName) {

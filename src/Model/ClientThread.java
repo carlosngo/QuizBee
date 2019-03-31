@@ -1,5 +1,6 @@
 package Model;
 
+import javax.swing.*;
 import java.util.*;
 import java.io.*;
 import java.net.*;
@@ -73,7 +74,8 @@ public class ClientThread implements Runnable, Observer {
                     server.createQuiz(quiz);
                 } else if (messageFromClient.startsWith("JOINQUIZ")) {
                     String[] data = messageFromClient.substring(9).split("\\|");
-                    server.addParticipant(this, data[0].trim(), data[1].trim());
+                    if (!server.addParticipant(this, data[0].trim(), data[1].trim())) reply.append("NO\n");
+                    else reply.append("OK\n");
                 } else if (messageFromClient.startsWith("LEAVEQUIZ")) {
                     String[] data = messageFromClient.substring(10).split("\\|");
                     server.removeParticipant(this, data[0].trim(), data[1].trim());

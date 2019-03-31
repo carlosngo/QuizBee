@@ -11,6 +11,7 @@ public class Quiz {
 
     // Client-side information
     private TreeMap<String, Integer> participants;
+    private long startTime;
     private ArrayList<String> topPlayers;
     private ArrayList<String> topScores;
 
@@ -51,6 +52,14 @@ public class Quiz {
 
     public void setQuestion(int index, Question q) {
         questions.set(index, q);
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
     }
 
     public ArrayList<Question> getQuestions() {
