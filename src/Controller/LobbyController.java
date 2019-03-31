@@ -49,14 +49,19 @@ public class LobbyController  {
 
     @FXML
     void startTheQuiz() {
-    	try {
-    	    client.startQuiz();
-            Parent root = FXMLLoader.load(getClass().getResource("/View/GUIqB.fxml"));
-            QuizBeeApplication.getStage().setScene(new Scene(root, 1075, 607));
-            QuizBeeApplication.getStage().setTitle("Quiz");
-        } catch (IOException e) {
-    	    e.printStackTrace();
-        }
+        client.startQuiz();
+    }
+
+    public void switchNextScene() {
+        Platform.runLater(() -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/View/GUIqB.fxml"));
+                QuizBeeApplication.getStage().setScene(new Scene(root, 1075, 607));
+                QuizBeeApplication.getStage().setTitle("Quiz");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @FXML
