@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.*;
+import Driver.QuizBeeApplication;
 
 import java.io.*;
 import java.net.*;
@@ -28,6 +29,7 @@ public class Client {
 
     // Controllers
     private LobbyController lc;
+    private QuizBController qbc;
 
     private Client() { }
 
@@ -59,6 +61,10 @@ public class Client {
 
     public void setLobbyController(LobbyController lc) {
         this.lc = lc;
+    }
+
+    public void setQuizBController(QuizBController qbc) {
+        this.qbc = qbc;
     }
 
     public void startConnection() throws IOException {
@@ -154,7 +160,8 @@ public class Client {
                     System.out.println("Received the following broadcast: " + messageFromServer);
                     if (messageFromServer.startsWith("STARTQUIZ")) {
                         System.out.println("Starting quiz...");
-                        administerQuiz(messageFromServer.substring(10));
+                        JOptionPane.showMessageDialog(null, "Quiz is starting...");
+                        lc.switchNextScene();
                     } else if (messageFromServer.startsWith("ENDQUIZ")) {
                         System.out.println("The quiz has finished. Here are the results:");
                         String[] info = messageFromServer.substring(8).split("\\|");
@@ -175,6 +182,8 @@ public class Client {
                     } else if (messageFromServer.startsWith("SCORE")) {
                         String[] info = messageFromServer.substring(6).split("\\|");
                         System.out.println("The score of contestant " + info[0] + " is now " + Integer.parseInt(info[1]));
+                        currentQuiz.setScore(info[0], Integer.parseInt(info[1]));
+                        qbc.update(currentQuiz.getParticipants());
                     } else {
                         System.out.println("Ignored the message: " + messageFromServer);
                     }
@@ -196,37 +205,45 @@ public class Client {
         outToServer.println("STARTQUIZ " + currentQuiz.getName());
     }
 
-    public void administerQuiz(String quizName) {
-        Quiz quiz = map.get(quizName);
+    public void administerQuiz() {
         currentAnswer.index = -1;
+//        while (true) {
+//            synchronized(qbc) {
+//                if (qbc != null) break;
+//            }
+//        }
+        qbc.update(currentQuiz.getParticipants());
         executor.submit(() -> {
-            for (int i = 0; i < quiz.getQuestions().size(); i++) {
+            for (int i = 0; i < currentQuiz.getQuestions().size(); i++) {
 
-                Question question = quiz.getQuestions().get(i);
-                System.out.println(question.getPrompt());
-                System.out.println("A. " + question.getChoices().get(0));
-                System.out.println("B. " + question.getChoices().get(1));
-                System.out.println("C. " + question.getChoices().get(2));
-                System.out.println("D. " + question.getChoices().get(3));
+                Question question = currentQuiz.getQuestions().get(i);
+                System.out.println("Updating View " + qbc);
+                qbc.update(question);
                 question.beginTimer();
                 while (true) {
                     synchronized (currentAnswer) {
                         if (currentAnswer.index != -1) break;
                     }
                 }
-                if (question.isCorrect(currentAnswer.index)) addPoints(quizName, question.getPoints());
+                if (question.isCorrect(currentAnswer.index)) addPoints(currentQuiz.getName(), question.getPoints());
                 currentAnswer.index = -1;
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            finishQuiz(quizName);
+            finishQuiz();
         });
     }
 
-    public void finishQuiz(String quizName) {
-        outToServer.println("FINISHQUIZ " + quizName + "|" + name);
+    public void finishQuiz() {
+        outToServer.println("FINISHQUIZ " + currentQuiz.getName() + "|" + name);
     }
 
     public void addPoints(String quizName, int increment) {
         setPoints(getPoints() + increment);
+        currentQuiz.setScore(name, getPoints());
         outToServer.println("SCORE " + quizName + "|" + name + "|" + getPoints());
     }
 
@@ -240,99 +257,4 @@ public class Client {
     private class Answer {
         int index;
     }
-
-//    public static void main(String[] args) {
-//        Client client = new Client();
-//        client.setName(JOptionPane.showInputDialog("What is your name?"));
-//        JFrame frm = new JFrame("Test");
-//        JPanel content = new JPanel();
-//        JButton getQuiz = new JButton("Get Quizzes");
-//        getQuiz.addActionListener(e -> client.getQuizzes());
-//        content.add(getQuiz);
-//        JButton joinQuiz = new JButton("Join Quiz");
-//        joinQuiz.addActionListener(e -> client.joinQuiz("My Quiz"));
-//        content.add(joinQuiz);
-//        JButton leaveQuiz = new JButton("Leave Quiz");
-//        leaveQuiz.addActionListener(e -> client.leaveQuiz("My Quiz"));
-//        content.add(leaveQuiz);
-//        JButton startQuiz = new JButton("Start Quiz");
-//        startQuiz.addActionListener(e -> client.startQuiz("My Quiz"));
-//        content.add(startQuiz);
-//        JButton addPoints = new JButton("Add Points");
-//        addPoints.addActionListener(e -> client.addPoints("My Quiz", 50));
-//        content.add(addPoints);
-//        JButton finishQuiz = new JButton("Finish Quiz");
-//        finishQuiz.addActionListener(e -> client.finishQuiz("My Quiz"));
-//        content.add(finishQuiz);
-//        JButton choiceA = new JButton("A");
-//        choiceA.addActionListener(e -> client.setChoice(0));
-//        content.add(choiceA);
-//        JButton choiceB = new JButton("B");
-//        choiceB.addActionListener(e -> client.setChoice(1));
-//        content.add(choiceB);
-//        JButton choiceC = new JButton("C");
-//        choiceC.addActionListener(e -> client.setChoice(2));
-//        content.add(choiceC);
-//        JButton choiceD = new JButton("D");
-//        choiceD.addActionListener(e -> client.setChoice(3));
-//        content.add(choiceD);
-//        frm.setContentPane(content);
-//        frm.setVisible(true);
-//        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frm.pack();
-
-//        client.startConnection();
-//
-////        ADDQUIZ Test
-//        Quiz q = new Quiz();
-//        q.setName("My Quiz");
-//        q.setDescription("A quiz made by the developers.");
-//        Question q1 = new Question();
-//        q1.setPrompt("HTML is the abbreviation for _________");
-//        q1.setAnswer(2);
-//        q1.setChoice(0, "Hyperlinks and Text Markup Language");
-//        q1.setChoice(1, "Home Tool Markup Language");
-//        q1.setChoice(2, "Hyper Text Markup Language");
-//        q1.setChoice(3, "Hyper Text Markdown Language");
-//        Question q2 = new Question();
-//        q2.setPrompt("Who is making the Web standards?");
-//        q2.setAnswer(3);
-//        q2.setChoice(0, "Microsoft");
-//        q2.setChoice(1, "Google");
-//        q2.setChoice(2, "Google");
-//        q2.setChoice(3, "The World Wide Web Consortium");
-//        Question q5 = new Question();
-//        q5.setPrompt("What is internet?");
-//        q5.setAnswer(1);
-//        q5.setChoice(0, "A single network");
-//        q5.setChoice(1, "A vast collection of different networks");
-//        q5.setChoice(2, "An interconnection of local area networks");
-//        q5.setChoice(3, "A magical place in our computers.");
-//        Question q3 = new Question();
-//        q3.setPrompt("Identify which of the services below use both TCP and UDP ports:");
-//        q3.setAnswer(1);
-//        q3.setChoice(0, "FTP");
-//        q3.setChoice(1, "DNS");
-//        q3.setChoice(2, "SSH");
-//        q3.setChoice(3, "TFTP");
-//        Question q4 = new Question();
-//        q4.setPrompt("Host A receives a frame and discards it after determining that it is corrupt. At which OSI layer are frames checked for errors?");
-//        q4.setAnswer(3);
-//        q4.setChoice(0, "Application");
-//        q4.setChoice(1, "Network");
-//        q4.setChoice(2, "Physical");
-//        q4.setChoice(3, "Data-link");
-//        q.setQuestion(0, q1);
-//        q.setQuestion(1, q2);
-//        q.setQuestion(2, q3);
-//        q.setQuestion(3, q4);
-//        q.setQuestion(4, q5);
-//        client.addQuiz(q);
-//
-//        System.out.println("Quiz successfully added.");
-////                GETQUIZ Test
-//        ArrayList<Quiz> quizzes = client.getQuizzes();
-//        System.out.println("Number of quizzes = " + quizzes.size());
-//        client.closeConnection();
-//    }
 }
