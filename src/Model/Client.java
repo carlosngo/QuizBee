@@ -249,7 +249,7 @@ public class Client {
                     synchronized (currentAnswer) {
                         if (currentAnswer.index != -1) break;
                     }
-                    if (System.currentTimeMillis() - currentQuiz.getStartTime() == 300000) { // if 5 minutes has passed, gg
+                    if (System.currentTimeMillis() - currentQuiz.getStartTime() == Quiz.DURATION) { // if 5 minutes has passed, gg
                         finishQuiz();
                     }
                 }

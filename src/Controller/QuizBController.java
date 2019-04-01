@@ -10,6 +10,9 @@ import Model.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -22,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Text;
 
 public class QuizBController {
 
@@ -66,6 +70,9 @@ public class QuizBController {
 
     private Client client = Client.getInstance();
 
+    private ScheduledExecutorService ses = Executors.newScheduledThreadPool(10);
+    private long timePassed = 0;
+
     @FXML
     public void clickA() {
         client.setChoice(0);
@@ -92,6 +99,7 @@ public class QuizBController {
 
     public void switchNextScene() {
         Platform.runLater(() -> {
+            ses.shutdown();
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/View/GUIResultScreen.fxml"));
                 QuizBeeApplication.getStage().setScene(new Scene(root, 1075, 607));
@@ -147,6 +155,7 @@ public class QuizBController {
             System.out.println("Updating participants...");
             ArrayList<String> info = new ArrayList<>();
             for (String participant : participants.keySet()) {
+                if (participant.equals(client.getName())) score.setText(participants.get(participant) + "");
                 info.add(participant + " " + participants.get(participant));
             }
             listOfParticipants.setItems(FXCollections.observableArrayList(info));
@@ -155,8 +164,22 @@ public class QuizBController {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+        userName.setText(client.getName());
+        score.setText("0");
         questionDisplay.setEditable(false);
         client.setQuizBController(this);
+        ses.scheduleAtFixedRate(() -> {
+            timer.setProgress(timePassed * 1.0 / Quiz.DURATION);
+            long remainingTime = Quiz.DURATION - timePassed;
+            String hms = String.format("%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(remainingTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(remainingTime)),
+                    TimeUnit.MILLISECONDS.toSeconds(remainingTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(remainingTime)));
+
+            Text timerText = (Text) timer.lookup(".percentage");
+            if (timerText != null) timerText.setText(hms);
+
+            timePassed += 1000;
+        }, 0, 1, TimeUnit.SECONDS);  // execute every x seconds
         client.administerQuiz();
     }
 }

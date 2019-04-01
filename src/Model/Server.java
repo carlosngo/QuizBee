@@ -10,7 +10,7 @@ import java.io.*;
 
 public class Server {
     public static final int PORT_NUMBER = 5555;
-    public static final String IP_ADDRESS = "172.20.10.10";
+    public static final String IP_ADDRESS = "127.0.0.1";
 
     private static final Server singleton = new Server();
     private final ExecutorService executor = Executors.newCachedThreadPool();
@@ -85,6 +85,7 @@ public class Server {
     public void createQuiz(Quiz q) {
         try {
             quizDAO.create(q);
+            quizThreads.put(q.getName(), new QuizThread(q));
         } catch (IllegalArgumentException e) {
             System.out.println("Quiz was not added.");
         }
