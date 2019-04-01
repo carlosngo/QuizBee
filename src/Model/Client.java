@@ -1,13 +1,11 @@
 package Model;
 
 import Controller.*;
-import Driver.QuizBeeApplication;
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
 import javax.swing.*;
-import java.awt.event.*;
 import java.util.concurrent.*;
 
 
@@ -28,8 +26,8 @@ public class Client {
     private HashMap<String, Quiz> map;
 
     // Controllers
-    private LobbyController lc;
-    private QuizBController qbc;
+    private RoomController lc;
+    private QuizProperController qbc;
 
     private Client() { }
 
@@ -73,11 +71,11 @@ public class Client {
         currentQuiz = quiz;
     }
 
-    public void setLobbyController(LobbyController lc) {
+    public void setLobbyController(RoomController lc) {
         this.lc = lc;
     }
 
-    public void setQuizBController(QuizBController qbc) {
+    public void setQuizBController(QuizProperController qbc) {
         this.qbc = qbc;
     }
 
@@ -93,6 +91,9 @@ public class Client {
 
     public void closeConnection() throws IOException {
         try {
+            outToServer.println("DISCONNECT " + name);
+            while (!inFromServer.readLine().equals("END"));
+            System.out.println("Disconnected successfully.");
             outToServer.close();
             inFromServer.close();
             socket.close();
@@ -167,6 +168,32 @@ public class Client {
         outToServer.println("DELETEQUIZ " + quizName);
     }
 
+    public String getStatus(String quizName) {
+        outToServer.println("GETSTATUS " + quizName);
+        String reply = "";
+        try {
+            reply = inFromServer.readLine();
+            if (inFromServer.readLine().equals("END"))
+                System.out.println("Status of quis is: " + reply);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        return reply;
+    }
+
+    public int getNumberOfPlayers(String quizName) {
+        outToServer.println("GETNUMPLAYERS " + quizName);
+        int numberOfPlayers = 0;
+        try {
+            numberOfPlayers = Integer.parseInt(inFromServer.readLine());
+            if (inFromServer.readLine().equals("END"))
+                System.out.println("Number of players in quis is: " + numberOfPlayers);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        return numberOfPlayers;
+    }
+
     public boolean joinQuiz(String quizName) {
         currentQuiz = map.get(quizName);
         currentQuiz.setParticipants(getParticipants());
@@ -199,7 +226,7 @@ public class Client {
                         qbc.switchNextScene();
                         String[] info = messageFromServer.substring(8).split("\\|");
                         for (int i = 0; i < info.length; i += 2) {
-                            currentQuiz.getTopPlayers().add("#" + (i / 2 + 1) + " " + info[i]);
+                            currentQuiz.getTopPlayers().add(info[i]);
                             currentQuiz.getTopScores().add(info[i + 1]);
                         }
                         messageFromServer = inFromServer.readLine();

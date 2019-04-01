@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Quiz {
     public static final int NUMBER_OF_QUESTIONS = 5;
+    public static final int MAX_NUMBER_OF_PARTICIPANTS = 4;
     public static final int DURATION = 300000; // duration of quizzes in milliseconds
     private int quizID;
     private String name;

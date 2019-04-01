@@ -14,10 +14,7 @@
 
 <AnchorPane prefHeight="538.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddQuizController">
     <children>
-      <ImageView fitHeight="538.0" fitWidth="590.0" layoutX="2.0" opacity="0.7" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../../resources/images/54255586_2237860296276799_560798904950456320_n.png" />
-         </image>
+      <ImageView fx:id="background" fitHeight="538.0" fitWidth="590.0" layoutX="2.0" opacity="0.7" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       </ImageView>
         <TextField fx:id="quizNameTxtFld" alignment="TOP_LEFT" layoutX="193.0" layoutY="14.0" prefHeight="18.0" prefWidth="337.0" promptText="Quiz Name" />
         <Label layoutX="29.0" layoutY="14.0" prefHeight="26.0" prefWidth="163.0" text="Enter Quiz Name:">

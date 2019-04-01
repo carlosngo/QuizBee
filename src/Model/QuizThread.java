@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class QuizThread extends Observable implements Runnable {
 
-    private final int MAX_PARTICIPANTS = 4;
+
     private final Quiz quiz = new Quiz();
     private TreeMap<String, Integer> scores = new TreeMap<>();
     private TreeMap<String, Boolean> clientStates = new TreeMap<>();
@@ -55,7 +55,7 @@ public class QuizThread extends Observable implements Runnable {
 
     public boolean hasStarted() { return hasStarted; }
 
-    public boolean isFull() { return MAX_PARTICIPANTS == countObservers(); }
+    public boolean isFull() { return Quiz.MAX_NUMBER_OF_PARTICIPANTS == countObservers(); }
 
     public void finishQuiz(String clientName) {
         clientStates.put(clientName, true);

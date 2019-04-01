@@ -35,6 +35,8 @@ public class ClientThread implements Runnable, Observer {
                     String name = messageFromClient.substring(8).trim();
                     if (!server.addClient(name)) reply.append("NO\n");
                     else reply.append("OK\n");
+                } else if (messageFromClient.startsWith("DISCONNECT")) {
+                    server.removeClient(messageFromClient.substring(11));
                 } else if (messageFromClient.equals("GETQUIZZES")) {
 //                    reply.append("GETQUIZZES ");
                     ArrayList<Quiz> quizzes = server.getQuizzes();
@@ -44,6 +46,12 @@ public class ClientThread implements Runnable, Observer {
                         reply.append(quizzes.get(i).toString());
                         reply.append("\n");
                     }
+                } else if (messageFromClient.startsWith("GETSTATUS")) {
+                    reply.append(server.getStatus(messageFromClient.substring(10).trim()));
+                    reply.append("\n");
+                } else if (messageFromClient.startsWith("GETNUMPLAYERS")) {
+                    reply.append(server.getNumberOfPlayers(messageFromClient.substring(14).trim()));
+                    reply.append("\n");
                 } else if (messageFromClient.startsWith("ADDQUIZ")) {
                     StringBuilder sb = new StringBuilder();
                     sb.append(messageFromClient.substring(7).trim());

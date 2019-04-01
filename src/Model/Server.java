@@ -72,6 +72,10 @@ public class Server {
         return true;
     }
 
+    public void removeClient(String name) {
+        clientNames.remove(name);
+    }
+
     public boolean addParticipant(ClientThread clientThread, String quizName, String participantName) {
         QuizThread quizThread = quizThreads.get(quizName);
         if (quizThread.hasStarted() || quizThread.isFull()) return false;
@@ -108,6 +112,14 @@ public class Server {
         } catch (IllegalArgumentException e) {
             System.out.println("Quiz was not deleted.");
         }
+    }
+
+    public String getStatus(String quizName) {
+        return quizThreads.get(quizName).hasStarted() ? "In game" : "Waiting";
+    }
+
+    public String getNumberOfPlayers(String quizName) {
+        return quizThreads.get(quizName).countObservers() + "";
     }
 
     public void startQuiz(String quizName) {

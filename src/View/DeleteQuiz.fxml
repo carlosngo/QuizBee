@@ -13,10 +13,7 @@
 
 <AnchorPane prefHeight="294.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DeleteQuizController">
     <children>
-      <ImageView fitHeight="294.0" fitWidth="474.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../../resources/images/54255586_2237860296276799_560798904950456320_n.png" />
-         </image>
+      <ImageView fx:id="background" fitHeight="294.0" fitWidth="474.0" layoutY="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       </ImageView>
         <Label fx:id="usernameLbl" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="62.0" prefWidth="445.0" text="Hi, USERNAME">
          <font>

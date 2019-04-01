@@ -1,5 +1,6 @@
 package Controller;
 
+import java.net.URISyntaxException;
 import java.util.*;
 
 import Driver.QuizBeeApplication;
@@ -7,15 +8,13 @@ import Model.*;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -24,10 +23,18 @@ public class DeleteQuizController {
     @FXML Label usernameLbl;
     @FXML ComboBox<String> quizNameCBox;
     @FXML Button deleteBtn, cancelBtn;
+    @FXML
+    private ImageView background;
 
     private final Client client = Client.getInstance();
 
     public void initialize() {
+        try {
+            background.setImage(new Image(getClass().getClassLoader().getResource(
+                    "images/green_and_white.png").toURI().toString()));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         // Hi + username
         usernameLbl.setText("Delete Quiz");
 
@@ -55,7 +62,7 @@ public class DeleteQuizController {
     }
 
     public void cancel () throws IOException, RuntimeException{
-        Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/MasterControls.fxml"));
         QuizBeeApplication.getStage().setScene(new Scene(root, 390, 350));
     }
 

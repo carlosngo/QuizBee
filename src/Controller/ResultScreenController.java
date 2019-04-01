@@ -1,30 +1,34 @@
 package Controller;
 
+import java.net.URISyntaxException;
 import java.util.*;
 import java.io.*;
 
 import Driver.QuizBeeApplication;
 import Model.Client;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class ResultScreenController {
-
     @FXML
-    private ListView<String> topPlayers;
-
+    private ImageView background;
     @FXML
-    private ListView<String> topScores;
-    
+    private TableView<TableRow> rankingTable;
     @FXML
-    private Button exitGame;
-
+    private TableColumn rankCol;
+    @FXML
+    private TableColumn nameCol;
+    @FXML
+    private TableColumn scoreCol;
     @FXML
     private Button backBtn;
 
@@ -34,8 +38,8 @@ public class ResultScreenController {
     public void back() {
         client.leaveQuiz();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/View/GUILobby.fxml"));
-            QuizBeeApplication.getStage().setScene(new Scene(root, 553, 357));
+            Parent root = FXMLLoader.load(getClass().getResource("/View/Lobby.fxml"));
+            QuizBeeApplication.getStage().setScene(new Scene(root, 650, 450));
             QuizBeeApplication.getStage().setTitle("Lobby");
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,33 +47,59 @@ public class ResultScreenController {
 
     }
 
-
-
     @FXML
     void initialize() {
-        topPlayers.setItems(FXCollections.observableArrayList(client.getCurrentQuiz().getTopPlayers()));
-        topScores.setItems(FXCollections.observableArrayList(client.getCurrentQuiz().getTopScores()));
-        topPlayers.setStyle("-fx-font-style: Britannic Bold; -fx-font-size: 15;");
-        topScores.setStyle("-fx-font-style: Britannic Bold; -fx-font-size: 15;");
-
+        try {
+            background.setImage(new Image(getClass().getClassLoader().getResource(
+                    "images/green_and_white.png").toURI().toString()));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        rankCol.setCellValueFactory(new PropertyValueFactory<TableRow, String>("rank"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<TableRow, String>("name"));
+        scoreCol.setCellValueFactory(new PropertyValueFactory<TableRow, String>("score"));
+        ObservableList<TableRow> ranking = FXCollections.observableArrayList();
+        ArrayList<String> topPlayers = client.getCurrentQuiz().getTopPlayers();
+        ArrayList<String> topScores = client.getCurrentQuiz().getTopScores();
+        for (int i = 0; i < topPlayers.size(); i++) {
+            ranking.add(new TableRow(Integer.toString(i + 1), topPlayers.get(i), topScores.get(i)));
+        }
+        rankingTable.setItems(ranking);
     }
 
+	public static class TableRow {
+        private final SimpleStringProperty rank;
+        private final SimpleStringProperty name;
+        private final SimpleStringProperty score;
 
-    
-	public ListView<String> getTopPlayers() {
-		return topPlayers;
-	}
+        public TableRow(String rank, String name, String score) {
+            this.rank = new SimpleStringProperty(rank);
+            this.name = new SimpleStringProperty(name);
+            this.score = new SimpleStringProperty(score);
+        }
 
-	public void setTopPlayers(ListView<String> topPlayers) {
-		this.topPlayers = topPlayers;
-	}
+        public String getRank() {
+            return rank.get();
+        }
 
-	public ListView<String> getTopScores() {
-		return topScores;
-	}
+        public void setRank(String rank) {
+            this.rank.set(rank);
+        }
 
-	public void setTopScores(ListView<String> topScores) {
-		this.topScores = topScores;
-	}
+        public String getName() {
+            return name.get();
+        }
 
+        public void setName(String name) {
+            this.name.set(name);
+        }
+
+        public String getScore() {
+            return score.get();
+        }
+
+        public void setScore(String score) {
+            this.score.set(score);
+        }
+    }
 }

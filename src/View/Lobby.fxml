@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LobbyController">
+   <children>
+      <ImageView fx:id="background" fitHeight="450.0" fitWidth="650.0" layoutX="-1.0" opacity="0.7" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      </ImageView>
+      <Button fx:id="refreshButton" layoutX="324.0" layoutY="377.0" mnemonicParsing="false" onAction="#refresh" prefHeight="39.0" prefWidth="109.0" text="Refresh" AnchorPane.leftAnchor="324.0" AnchorPane.rightAnchor="217.0">
+         <font>
+            <Font name="Britannic Bold" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="joinQuizButton" layoutX="448.0" layoutY="377.0" mnemonicParsing="false" onAction="#joinQuiz" prefHeight="39.0" prefWidth="145.0" text="Join Quiz" AnchorPane.leftAnchor="448.0" AnchorPane.rightAnchor="57.0">
+         <font>
+            <Font name="Britannic Bold" size="17.0" />
+         </font>
+      </Button>
+      <Label layoutX="214.0" layoutY="14.0" text="Select Quiz">
+         <font>
+            <Font name="Britannic Bold" size="45.0" />
+         </font>
+      </Label>
+      <Button fx:id="backButton" layoutX="55.0" layoutY="377.0" mnemonicParsing="false" onAction="#exit" onMouseClicked="#refresh" prefHeight="39.0" prefWidth="109.0" text="Exit">
+         <font>
+            <Font name="Britannic Bold" size="17.0" />
+         </font>
+      </Button>
+      <TableView fx:id="quizTableView" layoutX="55.0" layoutY="79.0" onMouseClicked="#readQuizName" prefHeight="270.0" prefWidth="538.0">
+        <columns>
+          <TableColumn fx:id="nameCol" prefWidth="155.20001602172852" text="Quiz Name" />
+            <TableColumn fx:id="descriptionCol" prefWidth="190.40000915527344" text="Description" />
+            <TableColumn fx:id="statusCol" minWidth="0.0" prefWidth="90.39996337890625" text="Status" />
+            <TableColumn fx:id="numPlayersCol" prefWidth="100.00003662109373" text="Players" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

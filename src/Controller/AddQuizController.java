@@ -7,9 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class AddQuizController {
 
@@ -22,12 +25,19 @@ public class AddQuizController {
     @FXML Tab question1, question2, question3, question4, question5;
     @FXML ComboBox<String> answerCBox1, answerCBox2, answerCBox3, answerCBox4, answerCBox5;
     @FXML Button saveBtn, discardAllBtn;
-
+    @FXML
+    private ImageView background;
     private final Client client = Client.getInstance();
     private Quiz quiz;
     private Question question;
 //    TempQuiz quiz;
     public void initialize () {
+        try {
+            background.setImage(new Image(getClass().getClassLoader().getResource(
+                    "images/green_and_white.png").toURI().toString()));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         // temporary quiz
         quiz = new Quiz();
         question = new Question();
@@ -190,7 +200,7 @@ public class AddQuizController {
 
     public void showAddDeleteFXML() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/View/MasterControls.fxml"));
             QuizBeeApplication.getStage().setScene(new Scene(root, 390, 350));
             discardAll();
         } catch (IOException exception) {

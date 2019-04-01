@@ -12,7 +12,6 @@ import javafx.stage.WindowEvent;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.net.URL;
 
 public class QuizBeeApplication extends Application {
 
@@ -26,7 +25,7 @@ public class QuizBeeApplication extends Application {
     public void start(Stage theStage) throws Exception {
         try {
             client.startConnection();
-            Parent root = FXMLLoader.load(getClass().getResource("/View/GUIwelcomePage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/View/Home.fxml"));
             primaryStage = theStage;
             primaryStage.setTitle("Welcome to Network Quiz Bee!");
             primaryStage.setScene(new Scene(root, 677, 454));
@@ -50,6 +49,7 @@ public class QuizBeeApplication extends Application {
             });
             primaryStage.show();
         } catch (IOException e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null,
                     "Could not connect to the server. Closing the program.",
                     "Connection Failed", JOptionPane.ERROR_MESSAGE);
