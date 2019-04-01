@@ -162,6 +162,11 @@ public class Client {
         }
     }
 
+    public void deleteQuiz(String quizName) {
+        map.remove(quizName);
+        outToServer.println("DELETEQUIZ " + quizName);
+    }
+
     public boolean joinQuiz(String quizName) {
         currentQuiz = map.get(quizName);
         currentQuiz.setParticipants(getParticipants());

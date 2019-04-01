@@ -58,6 +58,8 @@ public class ClientThread implements Runnable, Observer {
                     System.out.println("Going to add quiz:\n" + sb.toString());
                     Quiz quiz = Quiz.parseQuiz(sb.toString());
                     server.createQuiz(quiz);
+                } else if (messageFromClient.startsWith("DELETEQUIZ")) {
+                    server.deleteQuiz(messageFromClient.substring(11));
                 } else if (messageFromClient.startsWith("JOINQUIZ")) {
                     String[] data = messageFromClient.substring(9).split("\\|");
                     if (!server.addParticipant(this, data[0].trim(), data[1].trim())) reply.append("NO\n");

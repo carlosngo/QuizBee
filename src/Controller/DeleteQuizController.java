@@ -1,5 +1,7 @@
 package Controller;
 
+import java.util.*;
+
 import Driver.QuizBeeApplication;
 import Model.*;
 
@@ -26,12 +28,15 @@ public class DeleteQuizController {
 
     public void initialize() {
         // Hi + username
-        usernameLbl.setText("Hi Carlos");
+        usernameLbl.setText("Delete Quiz");
 
         // List of quiz names
 
         // if quiz name is not empty, add it to the combo box
-        quizNameCBox.getItems().addAll("Quiz Name 1", "Quiz Name 2", "Quiz Name 3");
+        ArrayList<String> quizNames = new ArrayList<>();
+        ArrayList<Quiz> quizzes = client.getQuizzes();
+        for (int i = 0; i < quizzes.size(); i++) quizNames.add(quizzes.get(i).getName());
+        quizNameCBox.getItems().addAll(quizNames);
         // else, use the command below, so that it won't have a null pointer exception :D
         // quizNameCBox.getItems().addAll("");
 
@@ -39,54 +44,9 @@ public class DeleteQuizController {
     }
 
     public void delete() {
-
-        if (quizNameCBox.getSelectionModel().getSelectedItem().isEmpty()) {
-            Stage window = new Stage();
-
-            window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Error!");
-            window.setMinWidth(250);
-
-            Label label = new Label("No Quizzes to be Deleted!");
-            Button closeButton = new Button("Close");
-
-            VBox layout = new VBox(20);
-            layout.getChildren().addAll(label, closeButton);
-            layout.setAlignment(Pos.CENTER);
-            closeButton.setOnAction(e -> window.close());
-
-            window.setScene(new Scene(layout));
-            window.showAndWait();
-        }
-
-        else {
-            String quizToBeDeleted = quizNameCBox.getSelectionModel().getSelectedItem();
-            quizNameCBox.getItems().remove(quizToBeDeleted);
-
-            // then delete whatever is selected
-
-
-            // An alert box will appear to inform user that selected quiz has been successfully deleted
-            Stage window = new Stage();
-
-            window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Success!");
-            window.setMinWidth(250);
-
-            Button close = new Button("Close");
-            Label label = new Label("Quiz has been deleted!");
-
-            VBox layout = new VBox(20);
-            layout.setAlignment(Pos.CENTER);
-            layout.getChildren().addAll(label, close);
-            close.setOnAction(e -> window.close());
-
-            window.setScene(new Scene(layout));
-            window.showAndWait();
-
-//            Parent root = FXMLLoader.load(getClass().getResource("/View/QuizMasterAddDelete.fxml"));
-//            ActivateRegistrationController.getStage().setScene(new Scene(root, 390, 350));
-        }
+        String quizToBeDeleted = quizNameCBox.getSelectionModel().getSelectedItem();
+        quizNameCBox.getItems().remove(quizToBeDeleted);
+        client.deleteQuiz(quizToBeDeleted);
     }
 
     public void cancel () throws IOException, RuntimeException{

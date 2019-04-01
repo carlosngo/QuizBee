@@ -16,7 +16,7 @@ public class QuizDAO {
     private static final String SQL_INSERT =
             "INSERT INTO " + Database.QUIZ_TABLE + " (Name, Description) VALUES (?, ?)";
     private static final String SQL_DELETE =
-            "DELETE FROM " + Database.QUIZ_TABLE + " WHERE PK_QuizID = ?";
+            "DELETE FROM " + Database.QUIZ_TABLE + " WHERE Name = ?";
     private static final String SQL_UPDATE =
             "UPDATE " + Database.QUIZ_TABLE + " SET Name = ?, Description = ? WHERE PK_QuizID = ?";
     private static final String SQL_EXIST_NAME =
@@ -114,7 +114,7 @@ public class QuizDAO {
 
     public void delete(Quiz quiz) {
         Object[] values = {
-                quiz.getQuizID()
+                quiz.getName()
         };
 
         Connection connection = Database.getConnection();

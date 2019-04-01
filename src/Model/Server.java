@@ -98,6 +98,18 @@ public class Server {
         }
     }
 
+    public void deleteQuiz(String quizName) {
+        try {
+            Quiz q = new Quiz();
+            q.setName(quizName);
+            quizDAO.delete(q);
+            quizThreads.get(quizName).broadcast("ENDQUIZ");
+            quizThreads.remove(quizName);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Quiz was not deleted.");
+        }
+    }
+
     public void startQuiz(String quizName) {
         startThread(quizThreads.get(quizName));
     }
