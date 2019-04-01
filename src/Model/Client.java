@@ -137,8 +137,9 @@ public class Client {
         StringBuilder sb = new StringBuilder();
         sb.append("ADDQUIZ ");
         sb.append(q);
-        sb.append("END");
+        sb.append("\nEND");
         outToServer.println(sb.toString());
+
         try {
             String reply = inFromServer.readLine();
             if (reply.equals("END")) System.out.println("Information was passed successfully.");

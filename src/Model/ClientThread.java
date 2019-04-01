@@ -66,10 +66,12 @@ public class ClientThread implements Runnable, Observer {
                     sb.append("\n");
                     messageFromClient = in.readLine();
                     while (!messageFromClient.equals("END")) {
+                        System.out.println(messageFromClient);
                         sb.append(messageFromClient);
                         sb.append("\n");
                         messageFromClient = in.readLine();
                     }
+                    System.out.println("Going to add quiz:\n" + sb.toString());
                     Quiz quiz = Quiz.parseQuiz(sb.toString());
                     server.createQuiz(quiz);
                 } else if (messageFromClient.startsWith("JOINQUIZ")) {
