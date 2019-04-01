@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class DeleteQuizController {
@@ -44,9 +45,13 @@ public class DeleteQuizController {
     }
 
     public void delete() {
-        String quizToBeDeleted = quizNameCBox.getSelectionModel().getSelectedItem();
-        quizNameCBox.getItems().remove(quizToBeDeleted);
-        client.deleteQuiz(quizToBeDeleted);
+        int choice = JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to delete this quiz?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            String quizToBeDeleted = quizNameCBox.getSelectionModel().getSelectedItem();
+            quizNameCBox.getItems().remove(quizToBeDeleted);
+            client.deleteQuiz(quizToBeDeleted);
+        }
     }
 
     public void cancel () throws IOException, RuntimeException{
