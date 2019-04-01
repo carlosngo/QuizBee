@@ -11,10 +11,6 @@ public class ClientThread implements Runnable, Observer {
     private BufferedReader in;
     private PrintWriter out;
 
-    // Information about client being handled
-    private String name;
-    private int points;
-
     public ClientThread(Socket socket) {
         this.socket = socket;
         try {
@@ -23,22 +19,6 @@ public class ClientThread implements Runnable, Observer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
     }
 
     @Override
@@ -51,7 +31,11 @@ public class ClientThread implements Runnable, Observer {
                 System.out.println("Received the message: " + messageFromClient + " from client.");
 
                 StringBuilder reply = new StringBuilder();
-                if (messageFromClient.equals("GETQUIZZES")) {
+                if (messageFromClient.startsWith("CONNECT")) {
+                    String name = messageFromClient.substring(8).trim();
+                    if (!server.addClient(name)) reply.append("NO\n");
+                    else reply.append("OK\n");
+                } else if (messageFromClient.equals("GETQUIZZES")) {
 //                    reply.append("GETQUIZZES ");
                     ArrayList<Quiz> quizzes = server.getQuizzes();
                     reply.append(quizzes.size());

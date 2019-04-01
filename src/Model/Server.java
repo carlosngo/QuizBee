@@ -18,6 +18,7 @@ public class Server {
     private final Lock lock = new ReentrantLock(true);
     private final QuizDAO quizDAO = new QuizDAO();
     private final TreeMap<String, QuizThread> quizThreads = new TreeMap<>();
+    private final TreeSet<String> clientNames = new TreeSet<>();
     private final QuestionDAO questionDAO = new QuestionDAO();
     private boolean shutdown = false;
 
@@ -63,6 +64,12 @@ public class Server {
     public void broadcastToParticipants(String quizName, Object message) {
         QuizThread quizThread = quizThreads.get(quizName);
         if (quizThread != null) quizThread.broadcast(message);
+    }
+
+    public boolean addClient(String name) {
+        if (clientNames.contains(name)) return false;
+        clientNames.add(name);
+        return true;
     }
 
     public boolean addParticipant(ClientThread clientThread, String quizName, String participantName) {

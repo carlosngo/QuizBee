@@ -46,10 +46,16 @@ public class WelcomeController {
     }
 
     public void playAsParticipant() throws IOException {
-        String name = "";
-        while (name.equals(""))
-            name = JOptionPane.showInputDialog(null, "Please input your name.");
-        client.setName(name);
+        String name;
+        boolean success = false;
+        while (!success) {
+            name = "";
+            while (name.equals(""))
+                name = JOptionPane.showInputDialog(null, "Please input your name.");
+            if (client.setName(name)) success = true;
+            else JOptionPane.showMessageDialog(null, "Name is already taken.");
+        }
+        JOptionPane.showMessageDialog(null, "Registration successful.");
         Parent root = FXMLLoader.load(getClass().getResource("/View/GUIselectQuiz.fxml"));
         QuizBeeApplication.getStage().setScene(new Scene(root, 592, 391));
         QuizBeeApplication.getStage().setTitle("Select a quiz");

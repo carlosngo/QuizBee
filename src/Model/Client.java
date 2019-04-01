@@ -39,8 +39,22 @@ public class Client {
         return name;
     }
 
-    public void setName(String name) {
+    public boolean setName(String name) {
+        outToServer.println("CONNECT " + name);
+        try {
+            String reply = inFromServer.readLine();
+            if (reply.equals("NO")) {
+                reply = inFromServer.readLine();
+                if (reply.equals("END")) System.out.println("Name is already taken.");
+                return false;
+            }
+            reply = inFromServer.readLine();
+            if (reply.equals("END")) System.out.println("Registration successful.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.name = name;
+        return true;
     }
 
     public int getPoints() {
