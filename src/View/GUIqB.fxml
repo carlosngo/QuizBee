@@ -10,46 +10,51 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="607.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.QuizBController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="1041.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.QuizBController">
    <children>
-      <ImageView fitHeight="607.0" fitWidth="235.0" layoutX="841.0" layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="840.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../../resources/images/54255936_268950643990540_5584889383946813440_n.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="607.0" fitWidth="840.0" layoutX="-3.0" layoutY="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="607.0" fitWidth="1000.0" layoutX="-3.0" layoutY="1.0" opacity="0.7" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../../resources/images/54255586_2237860296276799_560798904950456320_n.png" />
          </image>
       </ImageView>
-      <Button fx:id="pickA" layoutX="72.0" layoutY="382.0" mnemonicParsing="false" onAction="#clickA" prefHeight="93.0" prefWidth="336.0" text="A" AnchorPane.leftAnchor="72.0" />
-      <Button fx:id="pickB" layoutX="460.0" layoutY="382.0" mnemonicParsing="false" onAction="#clickB" prefHeight="93.0" prefWidth="336.0" text="B" AnchorPane.rightAnchor="314.0" />
-      <Button fx:id="pickC" layoutX="72.0" layoutY="489.0" mnemonicParsing="false" onAction="#clickC" prefHeight="93.0" prefWidth="336.0" text="C" AnchorPane.leftAnchor="72.0" />
-      <Button fx:id="pickD" layoutX="460.0" layoutY="489.0" mnemonicParsing="false" onAction="#clickD" prefHeight="93.0" prefWidth="336.0" text="D" AnchorPane.rightAnchor="314.0" />
-      <TextArea fx:id="questionDisplay" layoutX="61.0" layoutY="250.0" prefHeight="93.0" prefWidth="725.0" AnchorPane.leftAnchor="72.0" AnchorPane.rightAnchor="313.0" />
-      <Label fx:id="userName" layoutX="59.0" layoutY="49.0" text="USERNAME" textFill="#f5ecec">
+      <Button fx:id="pickA" alignment="CENTER" layoutX="63.0" layoutY="351.0" mnemonicParsing="false" onAction="#clickA" prefHeight="94.0" prefWidth="315.0" text="A" textAlignment="CENTER" AnchorPane.leftAnchor="63.0">
          <font>
-            <Font name="Bauhaus 93" size="32.0" />
+            <Font name="Britannic Bold" size="24.0" />
+         </font></Button>
+      <Button fx:id="pickB" alignment="CENTER" layoutX="391.00000000000006" layoutY="351.0" mnemonicParsing="false" onAction="#clickB" prefHeight="94.0" prefWidth="315.0" text="B" textAlignment="CENTER" AnchorPane.rightAnchor="334.79999999999995">
+         <font>
+            <Font name="Britannic Bold" size="24.0" />
+         </font></Button>
+      <Button fx:id="pickC" alignment="CENTER" layoutX="63.0" layoutY="458.0" mnemonicParsing="false" onAction="#clickC" prefHeight="94.0" prefWidth="315.0" text="C" textAlignment="CENTER" AnchorPane.leftAnchor="63.0">
+         <font>
+            <Font name="Britannic Bold" size="24.0" />
+         </font></Button>
+      <Button fx:id="pickD" alignment="CENTER" layoutX="391.00000000000006" layoutY="458.0" mnemonicParsing="false" onAction="#clickD" prefHeight="94.0" prefWidth="315.0" text="D" textAlignment="CENTER" AnchorPane.rightAnchor="334.79999999999995">
+         <font>
+            <Font name="Britannic Bold" size="24.0" />
+         </font></Button>
+      <TextArea fx:id="questionDisplay" layoutX="64.0" layoutY="244.0" prefHeight="94.0" prefWidth="640.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="336.0">
+         <font>
+            <Font name="Bauhaus 93" size="20.0" />
+         </font></TextArea>
+      <Label fx:id="userName" layoutX="64.0" layoutY="41.0" text="USERNAME">
+         <font>
+            <Font name="Britannic Bold" size="32.0" />
          </font></Label>
-      <Label fx:id="score" layoutX="59.0" layoutY="93.0" text="SCORE" textFill="#f8f0f0">
+      <Label fx:id="score" layoutX="64.0" layoutY="85.0" text="SCORE">
          <font>
-            <Font name="Bauhaus 93" size="32.0" />
+            <Font name="Britannic Bold" size="32.0" />
          </font></Label>
-      <ProgressIndicator fx:id="timer" layoutX="679.0" layoutY="64.0" prefHeight="113.0" prefWidth="173.0" progress="0.0" />
-      <Label fx:id="rightAns" layoutX="150.0" layoutY="189.0" text="(CORRECT ANS)NOT VISIBLE UNTIL TIMES UP!" textFill="#e3e59a">
+      <ProgressIndicator fx:id="timer" layoutX="623.0" layoutY="66.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="82.0" progress="0.0" />
+      <Label fx:id="rightAns" alignment="CENTER" layoutX="64.0" layoutY="191.0" text="(CORRECT ANS)NOT VISIBLE UNTIL TIMES UP!">
          <font>
-            <Font name="Bauhaus 93" size="32.0" />
+            <Font name="Britannic Bold" size="32.0" />
          </font>
       </Label>
-      <Label fx:id="correctOrWrong" layoutX="59.0" layoutY="139.0" text="CORRECT/WRONG" textFill="#7e45a4">
+      <ListView fx:id="listOfParticipants" layoutX="720.0" layoutY="72.0" prefHeight="514.0" prefWidth="225.0" />
+      <Label layoutX="727.0" layoutY="20.0" prefHeight="53.0" prefWidth="210.0" text="List of Participants">
          <font>
-            <Font name="Impact" size="30.0" />
-         </font>
-      </Label>
-      <ListView fx:id="listOfParticipants" layoutX="861.0" layoutY="67.0" prefHeight="513.0" prefWidth="200.0" />
-      <Label layoutX="856.0" layoutY="14.0" prefHeight="53.0" prefWidth="210.0" text="List of Participants">
-         <font>
-            <Font name="Bauhaus 93" size="25.0" />
+            <Font name="Britannic Bold" size="24.0" />
          </font>
       </Label>
    </children>

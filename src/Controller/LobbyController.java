@@ -56,7 +56,7 @@ public class LobbyController  {
         Platform.runLater(() -> {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/View/GUIqB.fxml"));
-                QuizBeeApplication.getStage().setScene(new Scene(root, 1075, 607));
+                QuizBeeApplication.getStage().setScene(new Scene(root, 1000, 607));
                 QuizBeeApplication.getStage().setTitle("Quiz");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -69,7 +69,7 @@ public class LobbyController  {
         client.leaveQuiz();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/View/GUIselectQuiz.fxml"));
-            QuizBeeApplication.getStage().setScene(new Scene(root, 592, 391));
+            QuizBeeApplication.getStage().setScene(new Scene(root, 650, 450));
             QuizBeeApplication.getStage().setTitle("Select Quiz");
         } catch (Exception ex) {
             ex.printStackTrace();

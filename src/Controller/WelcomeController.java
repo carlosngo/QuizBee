@@ -57,7 +57,7 @@ public class WelcomeController {
         }
         JOptionPane.showMessageDialog(null, "Registration successful.");
         Parent root = FXMLLoader.load(getClass().getResource("/View/GUIselectQuiz.fxml"));
-        QuizBeeApplication.getStage().setScene(new Scene(root, 592, 391));
+        QuizBeeApplication.getStage().setScene(new Scene(root, 650, 450));
         QuizBeeApplication.getStage().setTitle("Select a quiz");
     }
 }

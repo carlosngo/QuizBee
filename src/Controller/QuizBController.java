@@ -102,7 +102,7 @@ public class QuizBController {
             ses.shutdown();
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/View/GUIResultScreen.fxml"));
-                QuizBeeApplication.getStage().setScene(new Scene(root, 1075, 607));
+                QuizBeeApplication.getStage().setScene(new Scene(root, 562, 435));
                 QuizBeeApplication.getStage().setTitle("Quiz Results");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -166,6 +166,7 @@ public class QuizBController {
     void initialize() {
         userName.setText(client.getName());
         score.setText("0");
+        listOfParticipants.setStyle("-fx-font-size: 15; -fx-font-style: Britannic Bold;");
         questionDisplay.setEditable(false);
         client.setQuizBController(this);
         ses.scheduleAtFixedRate(() -> {

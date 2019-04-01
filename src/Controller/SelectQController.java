@@ -23,6 +23,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+
 public class SelectQController {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
@@ -32,7 +34,7 @@ public class SelectQController {
     @FXML // fx:id="quizzes"
     private ListView<String> quizzes = new ListView<String>(); // Value injected by FXMLLoader
     @FXML
-    private Button refreshButton;
+    private Button refreshButton, backButton;
     @FXML
     private Button joinQuizButton;
 
@@ -42,17 +44,15 @@ public class SelectQController {
     	return quizzes.getSelectionModel().getSelectedItem();
     }
     
-    @FXML
-    void readQuizName(MouseEvent e) {  //when the ListView is clicked
+
+    public void readQuizName(MouseEvent e) {  //when the ListView is clicked
     	if (quizzes.getSelectionModel().getSelectedItem() != null) joinQuizButton.setDisable(false);
     }
 
-    @FXML
-    void refresh(MouseEvent e) {  //refresh button
+    public void refresh(MouseEvent e) {  //refresh button
         quizzes.setItems(FXCollections.observableArrayList(getQuizzes()));
     }
-    
-    @FXML
+
     void joinQuiz(MouseEvent e) throws IOException, RuntimeException { //edit
     	if (!client.joinQuiz(getSelectedQuiz())) return;
     	Parent root = FXMLLoader.load(getClass().getResource("/View/GUILobby.fxml"));
@@ -69,8 +69,16 @@ public class SelectQController {
         return quizNames;
     }
 
-    @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
+    public void exit() {
+        int choice = JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to exit?",
+                "Confirm", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) QuizBeeApplication.getStage().close();;
+
+    }
+
+    // This method is called by the FXMLLoader when initialization is complete
+    public void initialize() {
         quizzes.setItems(FXCollections.observableArrayList(getQuizzes()));
         joinQuizButton.setDisable(true);
     }

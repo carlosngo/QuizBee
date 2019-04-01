@@ -26,16 +26,16 @@ public class ResultScreenController {
     private Button exitGame;
 
     @FXML
-    private Button tryAgain;
+    private Button backBtn;
 
     private Client client = Client.getInstance();
     
     @FXML
-    void leaveGameExit(MouseEvent event) {
+    public void back() {
         client.leaveQuiz();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/View/GUIselectQuiz.fxml"));
-            QuizBeeApplication.getStage().setScene(new Scene(root, 592, 391));
+            Parent root = FXMLLoader.load(getClass().getResource("/View/GUILobby.fxml"));
+            QuizBeeApplication.getStage().setScene(new Scene(root, 553, 357));
             QuizBeeApplication.getStage().setTitle("Lobby");
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,18 +43,18 @@ public class ResultScreenController {
 
     }
 
-    @FXML
-    void tryAgainAndReset(MouseEvent event) {
 
-    }
 
     @FXML
     void initialize() {
         topPlayers.setItems(FXCollections.observableArrayList(client.getCurrentQuiz().getTopPlayers()));
         topScores.setItems(FXCollections.observableArrayList(client.getCurrentQuiz().getTopScores()));
+        topPlayers.setStyle("-fx-font-style: Britannic Bold; -fx-font-size: 15;");
+        topScores.setStyle("-fx-font-style: Britannic Bold; -fx-font-size: 15;");
+
     }
 
-    
+
     
 	public ListView<String> getTopPlayers() {
 		return topPlayers;
