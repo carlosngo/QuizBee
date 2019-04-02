@@ -52,7 +52,7 @@ public class HomeController {
 
     public void loginAsQuizMaster() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/View/LogIn.fxml"));
-        QuizBeeApplication.getStage().setScene(new Scene(root, 491, 332));
+        QuizBeeApplication.getStage().setScene(new Scene(root, 518, 298));
         QuizBeeApplication.getStage().setTitle("Login as Quiz Master");
     }
 
