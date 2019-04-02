@@ -164,6 +164,7 @@ public class QuizProperController {
                 info.add(participant + " " + participants.get(participant));
             }
             listOfParticipants.setItems(FXCollections.observableArrayList(info));
+            System.out.println("Successfully updated participants.");
         });
     }
 
