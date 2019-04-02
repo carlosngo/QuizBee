@@ -10,7 +10,7 @@ import java.io.*;
 
 public class Server {
     public static final int PORT_NUMBER = 5555;
-    public static final String IP_ADDRESS = "127.0.0.1";
+    public static final String IP_ADDRESS = "192.168.43.217";
 
     private static final Server singleton = new Server();
     private final ExecutorService executor = Executors.newCachedThreadPool();
